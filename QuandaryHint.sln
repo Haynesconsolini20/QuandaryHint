@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuandaryHint", "QuandaryHint\QuandaryHint.csproj", "{DDC10934-7CF5-48E8-8978-FE33EAACA695}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuandaryWPF", "QuandaryWPF\QuandaryWPF.csproj", "{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,18 @@ Global
 		{DDC10934-7CF5-48E8-8978-FE33EAACA695}.Release|x64.ActiveCfg = Release|Any CPU
 		{DDC10934-7CF5-48E8-8978-FE33EAACA695}.Release|x86.ActiveCfg = Release|Any CPU
 		{DDC10934-7CF5-48E8-8978-FE33EAACA695}.Release|x86.Build.0 = Release|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Release|x64.Build.0 = Release|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A7DB1D0-CE47-42A5-9A17-EA9422F98DBA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
