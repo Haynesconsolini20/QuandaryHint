@@ -14,6 +14,10 @@ namespace QuandaryHint
         public string videoPath;
         public string audioPath;
         public double timerOffset;
+        public double videoOffset;
+        public int gameVolume;
+        public int hintVolume;
+        
         
         
 
@@ -22,7 +26,9 @@ namespace QuandaryHint
     public partial class gameSelect : Form
     {
         
-
+        //.8 video offset for dynaline
+        //1 for dead
+        //?? for train
         public GameOptions gameOptions;
 
         public gameSelect()
@@ -33,13 +39,16 @@ namespace QuandaryHint
         private void lockedInDead_Click(object sender, EventArgs e)
         {
             gameOptions.welcomeMessage = "Welcome to the Locked in Dead...";
-            gameOptions.hintFont = new Font("Chiller", 22);
+            gameOptions.hintFont = new Font("Chiller", 51);
             gameOptions.previewFont = new Font("Chiller", 12);
             gameOptions.fontColor = Color.White;
             gameOptions.gameMode = "The Locked In Dead";
             gameOptions.audioPath = "deadSound.mp3";
             gameOptions.videoPath = @"C:\LID.wmv";
             gameOptions.timerOffset = 108;
+            gameOptions.videoOffset = 1.00;
+            gameOptions.hintVolume = 5;
+            gameOptions.gameVolume = 9;
             this.Close();
         }
 
@@ -53,6 +62,8 @@ namespace QuandaryHint
             gameOptions.audioPath = "trainSound.mp3";
             gameOptions.videoPath = @"C:\RT.wmv";
             gameOptions.timerOffset = 140;
+            gameOptions.hintVolume = 10;
+            gameOptions.gameVolume = 10;
             this.Close();
         }
 
@@ -66,6 +77,9 @@ namespace QuandaryHint
             gameOptions.audioPath = "dynalineSound.mp3";
             gameOptions.videoPath = @"C:\DI.wmv";
             gameOptions.timerOffset = 95;
+            gameOptions.videoOffset = 0.600;
+            gameOptions.hintVolume = 1;
+            gameOptions.gameVolume = 5;
             this.Close();
         }
     }

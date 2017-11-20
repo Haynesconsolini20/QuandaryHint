@@ -17,7 +17,10 @@ namespace QuandaryHint
 
             //Initialize fontAdjuster
             fontAdjuster.Value = (decimal)_hintWin.hintLabel.Font.Size;
-            checkBox1.Checked = _form1.captureOnlyInForeground;
+            checkBox1.Checked = true;
+
+            volumeSlider.Value = _form1.hintVolume;
+            numericUpDown2.Value = _form1.gameVolume;
 
 
 
@@ -94,9 +97,74 @@ namespace QuandaryHint
         private void volumeSlider_ValueChanged(object sender, EventArgs e)
         {
             int volume = volumeSlider.Value;
-            _form1.videoSound.SetPlayerVolume(volume, volume);
+            volume *= 10;
             _form1.zplayer.SetPlayerVolume(volume, volume);
             
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e)
+        {
+            double offset = ((double)numericUpDown1.Value * 0.1);
+            _form1.VIDEO_OFFSET = offset;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _form1.playbackPosition = _form1.video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
+            _form1.video.axWindowsMediaPlayer1.Ctlcontrols.stop();
+            _form1.previewVideo.axWindowsMediaPlayer1.Ctlcontrols.stop();
+
+            _form1.videoSound.PausePlayback();
+            
+
+            decimal rewindInSeconds = secAdjust.Value + (minAdjust.Value * 60);
+            TStreamTime time = new TStreamTime();
+            time.sec = (uint)rewindInSeconds;
+
+            _form1.videoSound.Seek(TTimeFormat.tfSecond, ref time, TSeekMethod.smFromCurrentBackward);
+
+            _form1.video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = (_form1.playbackPosition - (double)rewindInSeconds);
+            _form1.previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = (_form1.playbackPosition - (double)rewindInSeconds);
+
+            _form1.videoSound.ResumePlayback();
+            _form1.video.axWindowsMediaPlayer1.Ctlcontrols.play();
+            _form1.previewVideo.axWindowsMediaPlayer1.Ctlcontrols.play();
+
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            int volume = volumeSlider.Value;
+            volume *= 10;
+
+            _form1.videoSound.SetMasterVolume(0, 0);
+            
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            int volume = (int)numericUpDown2.Value;
+            volume *= 10;
+
+            _form1.videoSound.SetPlayerVolume(volume, volume);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.CheckState == CheckState.Checked)
+                _form1.captureOnlyInForeground = false;
+            else
+                _form1.captureOnlyInForeground = true;
         }
     }
 }

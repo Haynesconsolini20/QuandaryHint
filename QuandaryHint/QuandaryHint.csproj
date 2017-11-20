@@ -142,6 +142,9 @@
     <Content Include="deadSound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="DI_Victory.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="dynalineSound.mp3" />
     <Content Include="hintSound.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

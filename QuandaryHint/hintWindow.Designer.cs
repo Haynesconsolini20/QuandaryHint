@@ -41,7 +41,6 @@
             this.hintLabel.Padding = new System.Windows.Forms.Padding(50, 0, 0, 50);
             this.hintLabel.Size = new System.Drawing.Size(934, 469);
             this.hintLabel.TabIndex = 0;
-            this.hintLabel.Text = "thrth";
             this.hintLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // hintWindow

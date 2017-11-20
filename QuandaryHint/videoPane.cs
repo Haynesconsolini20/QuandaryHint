@@ -42,6 +42,20 @@ namespace QuandaryHint
 
         }
 
-        
+        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            if (e.newState == 1 && axWindowsMediaPlayer1.URL == @"C:\DI_Victory.wmv")
+            {
+                axWindowsMediaPlayer1.Ctlcontrols.currentPosition = axWindowsMediaPlayer1.currentMedia.duration - 1.001;
+                axWindowsMediaPlayer1.Ctlcontrols.play();
+                axWindowsMediaPlayer1.Ctlcontrols.pause();
+            }
+        }
+
+        private void axWindowsMediaPlayer1_PositionChange(object sender, AxWMPLib._WMPOCXEvents_PositionChangeEvent e)
+        {
+            if (axWindowsMediaPlayer1.Ctlcontrols.currentPosition == axWindowsMediaPlayer1.currentMedia.duration - 1.00)
+                axWindowsMediaPlayer1.Ctlcontrols.pause();
+        }
     }
 }

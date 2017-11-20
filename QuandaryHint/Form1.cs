@@ -21,6 +21,7 @@ using System.Drawing;
  * Adjust dynaline texts to be on top of screen
  * Make dynaline font slightly smaller
  * Make start/adjust two different buttons
+ * Toggle keyboard
  * ***********************************/
 namespace QuandaryHint
 {
@@ -31,13 +32,15 @@ namespace QuandaryHint
 
 
         #region Variables
+        public int hintVolume;
+        public int gameVolume;
 
         //The offset for the video so that it syncs with the audio. Seems to be about .5 per video playing
-        static double VIDEO_OFFSET = 1000.900;
+        public double VIDEO_OFFSET = 1000.900;
 
         //This holds the position while the video is "paused". I actually have to stop the video
         //because the pause function literally does nothing.
-        private double playbackPosition = 0;
+        public double playbackPosition = 0;
         public GameOptions inheritOptions;
 
         //Our hint window
@@ -80,6 +83,9 @@ namespace QuandaryHint
             InitializeComponent();
 
             #region Initialize other windows
+            zplayer = new ZPlay();
+            videoSound = new ZPlay();
+
 
             //Initialize both hint windows
             _hintWin = new hintWindow();
@@ -113,8 +119,7 @@ namespace QuandaryHint
             SetDoubleBuffered(_hintWin);
 
             //Audio objects
-            zplayer = new ZPlay();
-            videoSound = new ZPlay();
+            
             videoSound.OpenFile(inheritOptions.audioPath, TStreamFormat.sfAutodetect);
             #endregion
 
@@ -191,7 +196,13 @@ namespace QuandaryHint
          ************************************************************/
         private void hintToggler_Click(object sender, EventArgs e)
         {
-            
+            ToggleHintBorder();
+        }
+        #endregion
+
+        private void ToggleHintBorder()
+        {
+
             if (_hintWin.FormBorderStyle == System.Windows.Forms.FormBorderStyle.Sizable)
             {
                 _hintWin.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -204,8 +215,6 @@ namespace QuandaryHint
                 _previewWin.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             }
         }
-        #endregion
-
         #region Window buttons
         /***********************************************************
          * showHintWin_Click
@@ -234,7 +243,11 @@ namespace QuandaryHint
         {
             rawInputKeyboard.ProcessInput(e);
             if (selectedSource == "void" || selectedSource == rawInputKeyboard.source)
-                HandleInput(rawInputKeyboard.processed);
+            {
+                if (!captureOnlyInForeground)
+                    HandleInput(rawInputKeyboard.processed);
+            }
+                
         }
 
         /***************************************
@@ -416,22 +429,31 @@ namespace QuandaryHint
        
 
         private void button1_Click_1(object sender, EventArgs e)
-        { 
+        {
+            OpenVideo();
+        }
+
+        private void OpenVideo()
+        {
             //Set the windows to the correct filepath
             previewVideo.axWindowsMediaPlayer1.URL = inheritOptions.videoPath;
             video.axWindowsMediaPlayer1.URL = inheritOptions.videoPath;
-   
+
             //Display the windows
             video.Show();
             previewVideo.Show();
         }
-
         #endregion
 
-        private void button2_Click(object sender, EventArgs e)
+        private void ToggleVideoBorder()
         {
             toggleVideoBorder(video);
             toggleVideoBorder(previewVideo);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ToggleVideoBorder();
         }
 
         private void toggleVideoBorder(videoPane video)
@@ -451,14 +473,19 @@ namespace QuandaryHint
 
         private void StartVideo()
         { 
-            
+            if (video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition > VIDEO_OFFSET)
+            {
+                videoSound.StopPlayback();
+            }
+
+
             //Starting the game-room video
             video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = VIDEO_OFFSET;
             video.axWindowsMediaPlayer1.Ctlcontrols.play();
             videoSound.StartPlayback();
 
             //Housekeeping settings for the game-room video
-            video.axWindowsMediaPlayer1.Size = new System.Drawing.Size(video.Width, video.Height);
+            
             video.axWindowsMediaPlayer1.settings.mute = true;
 
             //Starting the employee monitor video
@@ -469,7 +496,18 @@ namespace QuandaryHint
            
         }
 
+        private void AdjustVideo()
+        {
+            video.WindowState = FormWindowState.Maximized;
+            video.axWindowsMediaPlayer1.Size = new System.Drawing.Size(video.Width, video.Height);
+        }
+
         private void button4_Click(object sender, EventArgs e)
+        {
+            AlignHintWindows();
+        }
+        
+        private void AlignHintWindows()
         {
             _hintWin.Show();
             _hintWin.Location = video.Location;
@@ -479,10 +517,10 @@ namespace QuandaryHint
             _previewWin.Location = previewVideo.Location;
             _previewWin.Size = previewVideo.Size;
 
-            string fontName = _hintWin.hintLabel.Font.Name;
+            /*string fontName = _hintWin.hintLabel.Font.Name;
             float fontSize = (float)40.0;
             System.Drawing.Font newFont = new Font(fontName, fontSize);
-            _hintWin.hintLabel.Font = newFont;
+            _hintWin.hintLabel.Font = newFont;*/
         }
 
         private void ParseGameOptions(GameOptions game)
@@ -495,6 +533,13 @@ namespace QuandaryHint
             inheritOptions.audioPath = game.audioPath;
             inheritOptions.timerOffset = game.timerOffset;
             inheritOptions.previewFont = game.previewFont;
+            VIDEO_OFFSET = game.videoOffset;
+            zplayer.SetPlayerVolume(game.hintVolume, game.hintVolume);
+            videoSound.SetPlayerVolume(game.gameVolume, game.gameVolume);
+            gameVolume = game.gameVolume;
+            hintVolume = game.hintVolume;
+
+
             
 
         }
@@ -512,7 +557,7 @@ namespace QuandaryHint
             {
                 hint.hintLabel.TextAlign = ContentAlignment.TopCenter;
                 if (!preview)
-                     hint.hintLabel.Padding = new Padding(0, 100, 0, 0);
+                     hint.hintLabel.Padding = new Padding(0, 50, 0, 0);
             }
 
         }
@@ -542,19 +587,22 @@ namespace QuandaryHint
         private void PauseGame()
         {
             
+            
             if (playbackPosition == 0)
             {
                 playbackPosition = video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
-                video.axWindowsMediaPlayer1.Ctlcontrols.stop();
-                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.stop();
+                // video.axWindowsMediaPlayer1.Ctlcontrols.stop();
+                //previewVideo.axWindowsMediaPlayer1.Ctlcontrols.stop();
+                video.axWindowsMediaPlayer1.Ctlcontrols.pause();
+                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.pause();
                 videoSound.PausePlayback();
 
                 CalculateTimeRemaining();
             }
             else
             {
-                video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = playbackPosition;
-                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = playbackPosition;
+              //  video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = playbackPosition;
+              //  previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = playbackPosition;
                 video.axWindowsMediaPlayer1.Ctlcontrols.play();
                 previewVideo.axWindowsMediaPlayer1.Ctlcontrols.play();
                 videoSound.ResumePlayback();
@@ -567,6 +615,52 @@ namespace QuandaryHint
         {
             hintCount = (int)hintCounter.Value;
             updateHintCount(0);
+        }
+
+        private void adjustBtn_Click(object sender, EventArgs e)
+        {
+            AdjustVideo();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            playAudio();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+            PauseGame();
+            videoSound.StopPlayback();
+            if (inheritOptions.gameMode == "The Psych Ward")
+            {
+                video.axWindowsMediaPlayer1.URL = @"C:\DI_Victory.wmv";
+                video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = VIDEO_OFFSET;
+                videoSound.OpenFile("DI_Victory.wmv", TStreamFormat.sfAutodetect);
+
+                previewVideo.axWindowsMediaPlayer1.URL = @"C:\DI_Victory.wmv";
+                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = VIDEO_OFFSET;
+
+                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.play();
+                video.axWindowsMediaPlayer1.Ctlcontrols.play();
+                videoSound.StartPlayback();
+
+               
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            video.axWindowsMediaPlayer1.Ctlcontrols.pause();
+            previewVideo.axWindowsMediaPlayer1.Ctlcontrols.pause();
+        }
+
+        private void easyStartBtn_Click(object sender, EventArgs e)
+        {
+            AdjustVideo();
+            ToggleVideoBorder();
+            AlignHintWindows();
+            ToggleHintBorder();
         }
     }
 }
