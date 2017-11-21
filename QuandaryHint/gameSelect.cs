@@ -10,7 +10,7 @@ namespace QuandaryHint
         public string gameMode;
         public Font hintFont;
         public Font previewFont;
-        public System.Drawing.Color fontColor;
+        public Color fontColor;
         public string videoPath;
         public string audioPath;
         public double timerOffset;
@@ -43,10 +43,10 @@ namespace QuandaryHint
             gameOptions.previewFont = new Font("Chiller", 12);
             gameOptions.fontColor = Color.White;
             gameOptions.gameMode = "The Locked In Dead";
-            gameOptions.audioPath = "deadSound.mp3";
+            gameOptions.audioPath = @"assets\deadSound.mp3";
             gameOptions.videoPath = @"C:\LID.wmv";
             gameOptions.timerOffset = 108;
-            gameOptions.videoOffset = 1.00;
+            gameOptions.videoOffset = 0;
             gameOptions.hintVolume = 5;
             gameOptions.gameVolume = 9;
             this.Close();
@@ -59,9 +59,10 @@ namespace QuandaryHint
             gameOptions.previewFont = new Font("Lucida Console", 12);
             gameOptions.fontColor = Color.Green;
             gameOptions.gameMode = "The Runaway Train";
-            gameOptions.audioPath = "trainSound.mp3";
+            gameOptions.audioPath = @"assets\trainSound.mp3";
             gameOptions.videoPath = @"C:\RT.wmv";
             gameOptions.timerOffset = 140;
+            gameOptions.videoOffset = 3740;
             gameOptions.hintVolume = 10;
             gameOptions.gameVolume = 10;
             this.Close();
@@ -74,10 +75,10 @@ namespace QuandaryHint
             gameOptions.hintFont = new Font("Ailerons", 22);
             gameOptions.previewFont = new Font("Ailerons", 12);
             gameOptions.fontColor = Color.White;
-            gameOptions.audioPath = "dynalineSound.mp3";
+            gameOptions.audioPath = @"assets\dynalineSound.mp3";
             gameOptions.videoPath = @"C:\DI.wmv";
             gameOptions.timerOffset = 95;
-            gameOptions.videoOffset = 0.600;
+            gameOptions.videoOffset = 95;
             gameOptions.hintVolume = 1;
             gameOptions.gameVolume = 5;
             this.Close();

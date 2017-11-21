@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Media;
-using libZPlay;
 using RawInput_dll;
-using Microsoft.DirectX.AudioVideoPlayback;
-using System.IO;
-using System.Threading.Tasks;
 using System.Drawing;
 
 
@@ -32,11 +26,9 @@ namespace QuandaryHint
 
 
         #region Variables
-        public int hintVolume;
-        public int gameVolume;
+       
 
-        //The offset for the video so that it syncs with the audio. Seems to be about .5 per video playing
-        public double VIDEO_OFFSET = 1000.900;
+        
 
         //This holds the position while the video is "paused". I actually have to stop the video
         //because the pause function literally does nothing.
@@ -68,12 +60,12 @@ namespace QuandaryHint
         string selectedSource = "void";
 
         //Audio objects
-        public ZPlay zplayer;
-        public ZPlay videoSound;
+      
 
-        //Video objects
-        public videoPane video;
-        public videoPane previewVideo;
+        
+
+
+        public Game testGame;
         
 
 #endregion
@@ -83,8 +75,7 @@ namespace QuandaryHint
             InitializeComponent();
 
             #region Initialize other windows
-            zplayer = new ZPlay();
-            videoSound = new ZPlay();
+           
 
 
             //Initialize both hint windows
@@ -95,18 +86,15 @@ namespace QuandaryHint
             ParseGameOptions(gameSel.gameOptions);
             CopyGameOptions(_hintWin, false);
             CopyGameOptions(_previewWin, true);
-            
+
+            testGame = new Game(gameSel.gameOptions);
+
             //Initialize config window
-            _configWin = new configWin(_hintWin, this);
+            _configWin = new configWin(_hintWin, this, testGame);
             _previewWin.hintLabel.Font = inheritOptions.previewFont;
 
             
-            //Initialize video windows
-            video = new videoPane();
-            previewVideo = new videoPane();
-            video.Text = "Game window";
-            previewVideo.Text = "Preview window";
-            
+           
 
             #endregion
 
@@ -120,7 +108,9 @@ namespace QuandaryHint
 
             //Audio objects
             
-            videoSound.OpenFile(inheritOptions.audioPath, TStreamFormat.sfAutodetect);
+           
+
+           
             #endregion
 
             #region RawInput setup DO NOT TOUCH
@@ -134,15 +124,7 @@ namespace QuandaryHint
 
 
         #region Hint Pushing
-        /***************************************************
-         * playAudio
-         * Plays a sound for the hint push
-         ****************************************************/
-        private void playAudio()
-        {
-            zplayer.OpenFile("hintSound.wav", TStreamFormat.sfAutodetect);
-            zplayer.StartPlayback(); 
-        }
+       
 
         /**************************************************
          * pushHint
@@ -153,13 +135,17 @@ namespace QuandaryHint
             if (audioOn)
             {
                 if (sound)
-                    playAudio();
-            }
-      
-            //Actual setting of the labels
-            _hintWin.hintLabel.Text = hintEntry.Text;
-            _previewWin.hintLabel.Text = _hintWin.hintLabel.Text;
+                {
+                    //playAudio();
+                    testGame.PlayHint();
 
+                }
+            }
+
+            //Actual setting of the labels
+            // _hintWin.hintLabel.Text = hintEntry.Text;
+            // _previewWin.hintLabel.Text = _hintWin.hintLabel.Text;
+            testGame.SetHintText(hintEntry.Text);
             //Reset the textbox
             hintEntry.Text = "";
             
@@ -185,45 +171,17 @@ namespace QuandaryHint
          * button1_Click
          * Pushing of the "Push hint" button pushes a hint
          * **********************************************************/
-        private void button1_Click(object sender, EventArgs e)
+        private void HintPusher_Click(object sender, EventArgs e)
         {
             pushHint(true);
         }
     
-        /************************************************************
-         * hintToggler_Click
-         * Clicking of the "Toggle border" btn toggles the hintwin style
-         ************************************************************/
-        private void hintToggler_Click(object sender, EventArgs e)
-        {
-            ToggleHintBorder();
-        }
+        
         #endregion
 
-        private void ToggleHintBorder()
-        {
-
-            if (_hintWin.FormBorderStyle == System.Windows.Forms.FormBorderStyle.Sizable)
-            {
-                _hintWin.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                _previewWin.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-
-            }
-            else
-            {
-                _hintWin.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-                _previewWin.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-            }
-        }
+       
         #region Window buttons
-        /***********************************************************
-         * showHintWin_Click
-         * Shows the hintwindow if it got closed
-         * *********************************************************/
-        private void showHintWin_Click(object sender, EventArgs e)
-        {
-            _hintWin.Show();
-        }
+     
         /*************************************************************
          * configButton_Click
          * Opens the configuration window
@@ -294,7 +252,7 @@ namespace QuandaryHint
             else if (output == "CTRLp")
             {
 
-                PauseGame();
+                //PauseGame();
             }
             else if (output == "CTRLa")
             {
@@ -340,8 +298,7 @@ namespace QuandaryHint
                 hintEntry.SelectionStart = cursorPos;
                 //DecoderMessage();
                 //string initialDecode = "Decoding Hint...\n\n";
-                otherDecode(_hintWin);
-                otherDecode(_previewWin);
+                testGame.DecoderMessage();
                 
 
 
@@ -428,94 +385,36 @@ namespace QuandaryHint
         
        
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            OpenVideo();
-        }
-
-        private void OpenVideo()
-        {
-            //Set the windows to the correct filepath
-            previewVideo.axWindowsMediaPlayer1.URL = inheritOptions.videoPath;
-            video.axWindowsMediaPlayer1.URL = inheritOptions.videoPath;
-
-            //Display the windows
-            video.Show();
-            previewVideo.Show();
-        }
+       
+     
         #endregion
 
-        private void ToggleVideoBorder()
-        {
-            toggleVideoBorder(video);
-            toggleVideoBorder(previewVideo);
-        }
+      
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ToggleVideoBorder();
-        }
+       
 
-        private void toggleVideoBorder(videoPane video)
-        {
-            if (video.FormBorderStyle == System.Windows.Forms.FormBorderStyle.None)
-            {
-                video.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
-            }
-            else
-                video.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            StartVideo();
-        }
+       
+        private void StartVideoBtn_Click(object sender, EventArgs e) => testGame.StartGame();
 
 
-        private void StartVideo()
-        { 
-            if (video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition > VIDEO_OFFSET)
-            {
-                videoSound.StopPlayback();
-            }
+       
 
-
-            //Starting the game-room video
-            video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = VIDEO_OFFSET;
-            video.axWindowsMediaPlayer1.Ctlcontrols.play();
-            videoSound.StartPlayback();
-
-            //Housekeeping settings for the game-room video
-            
-            video.axWindowsMediaPlayer1.settings.mute = true;
-
-            //Starting the employee monitor video
-            previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = VIDEO_OFFSET;
-            previewVideo.axWindowsMediaPlayer1.Ctlcontrols.play();
-            previewVideo.axWindowsMediaPlayer1.settings.mute = true;
-
-           
-        }
-
-        private void AdjustVideo()
-        {
-            video.WindowState = FormWindowState.Maximized;
-            video.axWindowsMediaPlayer1.Size = new System.Drawing.Size(video.Width, video.Height);
-        }
+        
 
         private void button4_Click(object sender, EventArgs e)
         {
-            AlignHintWindows();
+            testGame.AlignHintWindows();
         }
         
         private void AlignHintWindows()
         {
             _hintWin.Show();
-            _hintWin.Location = video.Location;
-            _hintWin.Size = video.Size;
+          //  _hintWin.Location = video.Location;
+          //  _hintWin.Size = video.Size;
 
             _previewWin.Show();
-            _previewWin.Location = previewVideo.Location;
-            _previewWin.Size = previewVideo.Size;
+          //  _previewWin.Location = previewVideo.Location;
+          //  _previewWin.Size = previewVideo.Size;
 
             /*string fontName = _hintWin.hintLabel.Font.Name;
             float fontSize = (float)40.0;
@@ -533,11 +432,10 @@ namespace QuandaryHint
             inheritOptions.audioPath = game.audioPath;
             inheritOptions.timerOffset = game.timerOffset;
             inheritOptions.previewFont = game.previewFont;
-            VIDEO_OFFSET = game.videoOffset;
-            zplayer.SetPlayerVolume(game.hintVolume, game.hintVolume);
-            videoSound.SetPlayerVolume(game.gameVolume, game.gameVolume);
-            gameVolume = game.gameVolume;
-            hintVolume = game.hintVolume;
+          //  VIDEO_OFFSET = game.videoOffset;
+            
+          //  gameVolume = game.gameVolume;
+         //   hintVolume = game.hintVolume;
 
 
             
@@ -562,54 +460,18 @@ namespace QuandaryHint
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void PlayPauseBtn_Click(object sender, EventArgs e)
         {
-            
-            PauseGame();
+
+            testGame.TogglePaused();
+            label3.Text = testGame.GetEscapeTime();
         }
 
-        private void CalculateTimeRemaining()
-        {
-            
-            double minutes = (playbackPosition - inheritOptions.timerOffset) / 60;
-            double seconds = (playbackPosition - inheritOptions.timerOffset) % 60;
-            string sec;
-            if (seconds < 10)
-                sec = "0" + (int)seconds;
-            else
-                sec = ((int)seconds).ToString();
-
-            label3.Text = (int)minutes + ":" + sec;
-
-        }
+     
 
 
-        private void PauseGame()
-        {
-            
-            
-            if (playbackPosition == 0)
-            {
-                playbackPosition = video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
-                // video.axWindowsMediaPlayer1.Ctlcontrols.stop();
-                //previewVideo.axWindowsMediaPlayer1.Ctlcontrols.stop();
-                video.axWindowsMediaPlayer1.Ctlcontrols.pause();
-                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.pause();
-                videoSound.PausePlayback();
-
-                CalculateTimeRemaining();
-            }
-            else
-            {
-              //  video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = playbackPosition;
-              //  previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = playbackPosition;
-                video.axWindowsMediaPlayer1.Ctlcontrols.play();
-                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.play();
-                videoSound.ResumePlayback();
-                playbackPosition = 0;
-            }
-
-        }
+       
+        
 
         private void hintCounter_ValueChanged(object sender, EventArgs e)
         {
@@ -619,48 +481,35 @@ namespace QuandaryHint
 
         private void adjustBtn_Click(object sender, EventArgs e)
         {
-            AdjustVideo();
+            testGame.gameVideo.AdjustVideo();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void HintSoundBtn_Click(object sender, EventArgs e)
         {
-            playAudio();
+            testGame.PlayHint();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
 
-            PauseGame();
-            videoSound.StopPlayback();
-            if (inheritOptions.gameMode == "The Psych Ward")
-            {
-                video.axWindowsMediaPlayer1.URL = @"C:\DI_Victory.wmv";
-                video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = VIDEO_OFFSET;
-                videoSound.OpenFile("DI_Victory.wmv", TStreamFormat.sfAutodetect);
-
-                previewVideo.axWindowsMediaPlayer1.URL = @"C:\DI_Victory.wmv";
-                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = VIDEO_OFFSET;
-
-                previewVideo.axWindowsMediaPlayer1.Ctlcontrols.play();
-                video.axWindowsMediaPlayer1.Ctlcontrols.play();
-                videoSound.StartPlayback();
-
-               
-            }
+            testGame.Escape();
+            label3.Text = testGame.GetEscapeTime();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            video.axWindowsMediaPlayer1.Ctlcontrols.pause();
-            previewVideo.axWindowsMediaPlayer1.Ctlcontrols.pause();
+            testGame.gameVideo.PausePlayback();
+            //previewVideo.axWindowsMediaPlayer1.Ctlcontrols.pause();
         }
 
         private void easyStartBtn_Click(object sender, EventArgs e)
         {
-            AdjustVideo();
-            ToggleVideoBorder();
-            AlignHintWindows();
-            ToggleHintBorder();
+            testGame.SetupGameWindow();
+        }
+
+        private void ResetBtn_Click(object sender, EventArgs e)
+        {
+            testGame.ResetGame();
         }
     }
 }
