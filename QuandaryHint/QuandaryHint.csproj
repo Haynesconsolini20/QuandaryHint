@@ -142,7 +142,14 @@
     <Content Include="assets\dynalineSound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+<<<<<<< HEAD
     <Content Include="assets\hintSound.wav">
+=======
+    <Content Include="dynalineSound.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="hintSound.wav">
+>>>>>>> 859a6b640c8b9e1cc971db67ceb2954a1a0cca8b
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="libzplay.dll">
