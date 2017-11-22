@@ -37,7 +37,7 @@ namespace QuandaryHint
 
         private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
-            if (e.newState == 1 && axWindowsMediaPlayer1.URL == @"C:\DI_Victory.wmv")
+            if (e.newState == 1) //&& axWindowsMediaPlayer1.URL == @"C:\DI_Victory.wmv")
             {
                 axWindowsMediaPlayer1.Ctlcontrols.currentPosition = axWindowsMediaPlayer1.currentMedia.duration - 1.001;
                 axWindowsMediaPlayer1.Ctlcontrols.play();

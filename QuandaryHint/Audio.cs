@@ -6,6 +6,7 @@ namespace QuandaryHint
     {
         //The variable that this wrapper is for
         private ZPlay sound;
+        public int volume;
 
         #region Constructors
 
@@ -57,6 +58,7 @@ namespace QuandaryHint
             if (volume <= 10)
                 volume *= 10;
             sound.SetPlayerVolume(volume, volume);
+            this.volume = volume / 10;
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace QuandaryHint
         /// </summary>
         /// <param name="minutes"></param>
         /// <param name="seconds"></param>
-        public void FastForward(int minutes, int seconds)
+        public void FastForward(double minutes, double seconds)
         {
             TStreamTime time = new TStreamTime();
             time.sec = (uint)ComputeSeconds(minutes, seconds);
@@ -108,7 +110,7 @@ namespace QuandaryHint
         /// </summary>
         /// <param name="minutes"></param>
         /// <param name="seconds"></param>
-        public void Rewind(int minutes, int seconds)
+        public void Rewind(double minutes, double seconds)
         {
             TStreamTime time = new TStreamTime();
             time.sec = (uint)ComputeSeconds(minutes, seconds);
@@ -129,15 +131,19 @@ namespace QuandaryHint
             sound.Seek(TTimeFormat.tfSecond, ref time, TSeekMethod.smFromBeginning);
         }
 
-
+        /// <summary>
+        /// Sets audio output
+        /// </summary>
+        /// <param name="i"></param>
+        public void SetAudioOutput(uint i) => sound.SetWaveOutDevice(i);
 
 
         #endregion
 
         #region Private methods
-        private int ComputeSeconds(int minutes, int seconds)
+        private double ComputeSeconds(double minutes, double seconds)
         {
-            int newSeconds = seconds;
+            double newSeconds = seconds;
             newSeconds += (minutes * 60);
 
             return newSeconds;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using libZPlay;
 
@@ -7,49 +6,38 @@ namespace QuandaryHint
 {
     public partial class configWin : Form
     {
-        private hintWindow _hintWin;
-        private Form1 _form1;
+        #region Variables
         private Game testGame;
-        public configWin(hintWindow hintWin, Form1 form1, Game testGame)
+        private ZPlay zplayer;
+       // private Excel excel = new Excel(@"C:\Users\samBootcamp\Desktop\testbook.xlsx", 1);
+        #endregion
+
+        #region Constructors
+        public configWin(Game testGame)
         {
             InitializeComponent();
-            _hintWin = hintWin;
-            _form1 = form1;
+            
+            
+            //Set objects
             this.testGame = testGame;
+            zplayer = new ZPlay();
 
-            //Initialize fontAdjuster
-            fontAdjuster.Value = (decimal)_hintWin.hintLabel.Font.Size;
-            checkBox1.Checked = true;
-
-           // volumeSlider.Value = _form1.hintVolume;
-           // numericUpDown2.Value = _form1.gameVolume;
-
-
+            //label2.Text = excel.ReadCell(1, 1);
+            FontAdjuster.Value = testGame.gameOptions.hintFontSize;
+            HintSoundUpDown.Value = testGame.hintSound.volume;
+            VideoSoundUpDown.Value = testGame.videoSound.volume;
+            
 
         }
 
-        private void fontAdjuster_ValueChanged(object sender, EventArgs e)
-        {
-            string fontName = _hintWin.hintLabel.Font.Name;
-            float fontSize = (float)fontAdjuster.Value;
-            System.Drawing.Font newFont = new Font(fontName, fontSize);
-            _hintWin.hintLabel.Font = newFont;
-        }
+        #endregion
 
-        private void psychButton_Click(object sender, EventArgs e)
-        {
-           
-            if (_hintWin.hintLabel.BackColor == System.Drawing.SystemColors.WindowText)
-            {
-                _hintWin.hintLabel.BackColor = System.Drawing.Color.DarkSlateGray;
+        #region Event Handlers
 
-            }
-            else
-            {
-                _hintWin.hintLabel.BackColor = System.Drawing.SystemColors.WindowText;
-            }
-        }
-
+        /// <summary>
+        /// Hides the window upon clicking the X
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -60,119 +48,105 @@ namespace QuandaryHint
             e.Cancel = true;
         }
 
+        /// <summary>
+        /// Sets the audio output for the game based on the selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void audioSetterBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < audioSetterBox.Items.Count; i++)
             {
                 if (audioSetterBox.Items[i] == audioSetterBox.Items[audioSetterBox.SelectedIndex])
                 {
-
-                  //  _form1.zplayer.SetWaveOutDevice((uint)i);
-                  //  _form1.videoSound.SetWaveOutDevice((uint)i);
+                    testGame.SetAudioOutput((uint)i);
                 }
 
             }
         }
 
+        /// <summary>
+        /// Fills the box with a list of possible audio outputs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void audioSetterBox_Click(object sender, EventArgs e)
         {
             audioSetterBox.Items.Clear();
             TWaveOutInfo WaveOutInfo = new TWaveOutInfo();
-           // int WaveOutNum = _form1.zplayer.EnumerateWaveOut();
+            int WaveOutNum = zplayer.EnumerateWaveOut();
             uint i;
-           // for (i = 0; i < WaveOutNum; i++)
+            for (i = 0; i < WaveOutNum; i++)
             {
-               // if (_form1.zplayer.GetWaveOutInfo(i, ref WaveOutInfo))
+                if (zplayer.GetWaveOutInfo(i, ref WaveOutInfo))
                 {
                     audioSetterBox.Items.Add(WaveOutInfo.ProductName);
                 }
             }
         }
 
-        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Rewinds the game based on the minutes and seconds boxes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddTimeBtn_Click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-                _form1.captureOnlyInForeground = true;
-            else
-                _form1.captureOnlyInForeground = false;
+            testGame.RewindGame((double)minAdjust.Value, (double)secAdjust.Value);
         }
-
-        private void volumeSlider_ValueChanged(object sender, EventArgs e)
-        {
-            int volume = volumeSlider.Value;
-            testGame.hintSound.SetVolume(volume);
-           // testGame.SetGameVolume(volumeSlider.Value);
-           // volume *= 10;
-         //   _form1.zplayer.SetPlayerVolume(volume, volume);
-           // _form1.testGame.SetGameVolume(volumeSlider.Value);
-            
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+      
+        /// <summary>
+        /// Adjusts the video sound
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VideoSoundUpDown_ValueChanged(object sender, EventArgs e)
         {
             
-        }
-
-        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e)
-        {
-            double offset = ((double)numericUpDown1.Value * 0.1);
-           // _form1.VIDEO_OFFSET = offset;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-           // _form1.playbackPosition = _form1.video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
-           // _form1.video.axWindowsMediaPlayer1.Ctlcontrols.stop();
-          //  _form1.previewVideo.axWindowsMediaPlayer1.Ctlcontrols.stop();
-
-           // _form1.videoSound.PausePlayback();
+            testGame.videoSound.SetVolume((int)VideoSoundUpDown.Value);
+            
             
 
-            decimal rewindInSeconds = secAdjust.Value + (minAdjust.Value * 60);
-            TStreamTime time = new TStreamTime();
-            time.sec = (uint)rewindInSeconds;
-
-           // _form1.videoSound.Seek(TTimeFormat.tfSecond, ref time, TSeekMethod.smFromCurrentBackward);
-
-           // _form1.video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = (_form1.playbackPosition - (double)rewindInSeconds);
-           // _form1.previewVideo.axWindowsMediaPlayer1.Ctlcontrols.currentPosition = (_form1.playbackPosition - (double)rewindInSeconds);
-
-           // _form1.videoSound.ResumePlayback();
-          //  _form1.video.axWindowsMediaPlayer1.Ctlcontrols.play();
-           // _form1.previewVideo.axWindowsMediaPlayer1.Ctlcontrols.play();
-
+           
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Adjusts the hint boop sound
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HintSoundUpDown_ValueChanged(object sender, EventArgs e)
         {
-            int volume = volumeSlider.Value;
-            volume *= 10;
-
-          //  _form1.videoSound.SetMasterVolume(0, 0);
-          //  
+            testGame.hintSound.SetVolume((int)HintSoundUpDown.Value);
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        /// <summary>
+        /// Subtracts time from the game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SubtractTimeBtn_Click(object sender, EventArgs e)
         {
-
+            testGame.FastForward((double)minAdjust.Value, (double)secAdjust.Value);
         }
 
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+
+        #endregion
+
+        private void ExcelWriteBtn_Click(object sender, EventArgs e)
         {
-            int volume = (int)numericUpDown2.Value;
-            testGame.videoSound.SetVolume(volume);
             
-            volume *= 10;
-
-           // _form1.videoSound.SetPlayerVolume(volume, volume);
+           
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void SNQBtn_Click(object sender, EventArgs e)
         {
-            if (checkBox1.CheckState == CheckState.Checked)
-                _form1.captureOnlyInForeground = false;
-            else
-                _form1.captureOnlyInForeground = true;
+           // excel.SaveAndQuit();
+        }
+
+        private void FontAdjuster_ValueChanged(object sender, EventArgs e)
+        {
+            testGame.gameHint.EditFontSize((int)FontAdjuster.Value);
         }
     }
 }

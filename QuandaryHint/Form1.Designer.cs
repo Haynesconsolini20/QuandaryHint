@@ -37,13 +37,19 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.StartVideoBtn = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.AlignHintsBtn = new System.Windows.Forms.Button();
             this.PlayPauseBtn = new System.Windows.Forms.Button();
             this.HintSoundBtn = new System.Windows.Forms.Button();
             this.EscapeBtn = new System.Windows.Forms.Button();
             this.easyStartBtn = new System.Windows.Forms.Button();
             this.ResetBtn = new System.Windows.Forms.Button();
+            this.CaptureInputCheckBox = new System.Windows.Forms.CheckBox();
+            this.TeamNameEntry = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.TeamSizeEntry = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.hintCounter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TeamSizeEntry)).BeginInit();
             this.SuspendLayout();
             // 
             // HintPusher
@@ -65,6 +71,7 @@
             this.hintEntry.Name = "hintEntry";
             this.hintEntry.Size = new System.Drawing.Size(220, 91);
             this.hintEntry.TabIndex = 1;
+            this.hintEntry.Click += new System.EventHandler(this.hintEntry_Click);
             // 
             // configButton
             // 
@@ -124,13 +131,13 @@
             this.label3.Location = new System.Drawing.Point(12, 157);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(122, 13);
             this.label3.TabIndex = 11;
-            this.label3.Text = "label3";
+            this.label3.Text = "much longer label to see";
             // 
             // StartVideoBtn
             // 
-            this.StartVideoBtn.Location = new System.Drawing.Point(439, 148);
+            this.StartVideoBtn.Location = new System.Drawing.Point(441, 168);
             this.StartVideoBtn.Margin = new System.Windows.Forms.Padding(2);
             this.StartVideoBtn.Name = "StartVideoBtn";
             this.StartVideoBtn.Size = new System.Drawing.Size(64, 39);
@@ -139,16 +146,16 @@
             this.StartVideoBtn.UseVisualStyleBackColor = true;
             this.StartVideoBtn.Click += new System.EventHandler(this.StartVideoBtn_Click);
             // 
-            // button4
+            // AlignHintsBtn
             // 
-            this.button4.Location = new System.Drawing.Point(6, 10);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(49, 45);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "Align hints";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.AlignHintsBtn.Location = new System.Drawing.Point(6, 15);
+            this.AlignHintsBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.AlignHintsBtn.Name = "AlignHintsBtn";
+            this.AlignHintsBtn.Size = new System.Drawing.Size(78, 34);
+            this.AlignHintsBtn.TabIndex = 13;
+            this.AlignHintsBtn.Text = "Align hints";
+            this.AlignHintsBtn.UseVisualStyleBackColor = true;
+            this.AlignHintsBtn.Click += new System.EventHandler(this.AlignHintsBtn_Click);
             // 
             // PlayPauseBtn
             // 
@@ -181,16 +188,16 @@
             this.EscapeBtn.TabIndex = 17;
             this.EscapeBtn.Text = "Escape!";
             this.EscapeBtn.UseVisualStyleBackColor = true;
-            this.EscapeBtn.Click += new System.EventHandler(this.button7_Click);
+            this.EscapeBtn.Click += new System.EventHandler(this.EscapeBtn_Click);
             // 
             // easyStartBtn
             // 
-            this.easyStartBtn.Location = new System.Drawing.Point(439, 110);
+            this.easyStartBtn.Location = new System.Drawing.Point(441, 130);
             this.easyStartBtn.Margin = new System.Windows.Forms.Padding(2);
             this.easyStartBtn.Name = "easyStartBtn";
             this.easyStartBtn.Size = new System.Drawing.Size(64, 34);
             this.easyStartBtn.TabIndex = 18;
-            this.easyStartBtn.Text = "Baby button";
+            this.easyStartBtn.Text = "Initial Setup";
             this.easyStartBtn.UseVisualStyleBackColor = true;
             this.easyStartBtn.Click += new System.EventHandler(this.easyStartBtn_Click);
             // 
@@ -204,18 +211,71 @@
             this.ResetBtn.UseVisualStyleBackColor = true;
             this.ResetBtn.Click += new System.EventHandler(this.ResetBtn_Click);
             // 
+            // CaptureInputCheckBox
+            // 
+            this.CaptureInputCheckBox.AutoSize = true;
+            this.CaptureInputCheckBox.Checked = true;
+            this.CaptureInputCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CaptureInputCheckBox.Location = new System.Drawing.Point(413, 25);
+            this.CaptureInputCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.CaptureInputCheckBox.Name = "CaptureInputCheckBox";
+            this.CaptureInputCheckBox.Size = new System.Drawing.Size(90, 17);
+            this.CaptureInputCheckBox.TabIndex = 20;
+            this.CaptureInputCheckBox.Text = "Capture Input";
+            this.CaptureInputCheckBox.UseVisualStyleBackColor = true;
+            this.CaptureInputCheckBox.CheckedChanged += new System.EventHandler(this.CaptureInputCheckBox_CheckedChanged);
+            // 
+            // TeamNameEntry
+            // 
+            this.TeamNameEntry.Location = new System.Drawing.Point(413, 65);
+            this.TeamNameEntry.Name = "TeamNameEntry";
+            this.TeamNameEntry.Size = new System.Drawing.Size(100, 20);
+            this.TeamNameEntry.TabIndex = 21;
+            this.TeamNameEntry.Text = "blank";
+            this.TeamNameEntry.Click += new System.EventHandler(this.TeamNameEntry_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(410, 49);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Team Name";
+            // 
+            // TeamSizeEntry
+            // 
+            this.TeamSizeEntry.Location = new System.Drawing.Point(479, 86);
+            this.TeamSizeEntry.Name = "TeamSizeEntry";
+            this.TeamSizeEntry.Size = new System.Drawing.Size(34, 20);
+            this.TeamSizeEntry.TabIndex = 23;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(418, 85);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Team size";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(516, 212);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.TeamSizeEntry);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.TeamNameEntry);
+            this.Controls.Add(this.CaptureInputCheckBox);
             this.Controls.Add(this.ResetBtn);
             this.Controls.Add(this.easyStartBtn);
             this.Controls.Add(this.EscapeBtn);
             this.Controls.Add(this.HintSoundBtn);
             this.Controls.Add(this.PlayPauseBtn);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.AlignHintsBtn);
             this.Controls.Add(this.StartVideoBtn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -228,7 +288,10 @@
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
+            this.Text = "Control Window";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.hintCounter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TeamSizeEntry)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,12 +308,17 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button StartVideoBtn;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button AlignHintsBtn;
         private System.Windows.Forms.Button PlayPauseBtn;
         private System.Windows.Forms.Button HintSoundBtn;
         private System.Windows.Forms.Button EscapeBtn;
         private System.Windows.Forms.Button easyStartBtn;
         private System.Windows.Forms.Button ResetBtn;
+        private System.Windows.Forms.CheckBox CaptureInputCheckBox;
+        private System.Windows.Forms.TextBox TeamNameEntry;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown TeamSizeEntry;
+        private System.Windows.Forms.Label label5;
     }
 }
 

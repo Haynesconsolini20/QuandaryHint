@@ -28,281 +28,297 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.fontAdjuster = new System.Windows.Forms.NumericUpDown();
-            this.fontAdjustLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.configKB = new System.Windows.Forms.Label();
-            this.psychButton = new System.Windows.Forms.Button();
             this.audioSetterBox = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.volumeSlider = new System.Windows.Forms.TrackBar();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.minAdjust = new System.Windows.Forms.NumericUpDown();
             this.secAdjust = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.AddTimeBtn = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.fontAdjuster)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.volumeSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.VideoSoundUpDown = new System.Windows.Forms.NumericUpDown();
+            this.HintSoundUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.SubtractTimeBtn = new System.Windows.Forms.Button();
+            this.ExcelWriteBtn = new System.Windows.Forms.Button();
+            this.SNQBtn = new System.Windows.Forms.Button();
+            this.FontAdjuster = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minAdjust)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.secAdjust)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VideoSoundUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HintSoundUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FontAdjuster)).BeginInit();
             this.SuspendLayout();
-            // 
-            // fontAdjuster
-            // 
-            this.fontAdjuster.Location = new System.Drawing.Point(589, 109);
-            this.fontAdjuster.Name = "fontAdjuster";
-            this.fontAdjuster.Size = new System.Drawing.Size(120, 31);
-            this.fontAdjuster.TabIndex = 0;
-            this.fontAdjuster.ValueChanged += new System.EventHandler(this.fontAdjuster_ValueChanged);
-            // 
-            // fontAdjustLabel
-            // 
-            this.fontAdjustLabel.AutoSize = true;
-            this.fontAdjustLabel.Location = new System.Drawing.Point(584, 81);
-            this.fontAdjustLabel.Name = "fontAdjustLabel";
-            this.fontAdjustLabel.Size = new System.Drawing.Size(159, 25);
-            this.fontAdjustLabel.TabIndex = 1;
-            this.fontAdjustLabel.Text = "Adjust font size";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(6, 5);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(201, 25);
+            this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Keyboard Shortcuts";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 168);
+            this.label2.Location = new System.Drawing.Point(6, 87);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(264, 25);
+            this.label2.Size = new System.Drawing.Size(130, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Ctrl + B Toggle hint border";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 127);
+            this.label3.Location = new System.Drawing.Point(6, 66);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(283, 25);
+            this.label3.Size = new System.Drawing.Size(141, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Ctrl + R Remove current hint";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 84);
+            this.label4.Location = new System.Drawing.Point(6, 44);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(284, 25);
+            this.label4.Size = new System.Drawing.Size(140, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Shift + Enter Silent hint push";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 45);
+            this.label5.Location = new System.Drawing.Point(6, 23);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(214, 25);
+            this.label5.Size = new System.Drawing.Size(107, 13);
             this.label5.TabIndex = 6;
             this.label5.Text = "Ctrl + W Reset Game";
-            // 
-            // configKB
-            // 
-            this.configKB.AutoSize = true;
-            this.configKB.Font = new System.Drawing.Font("Ailerons", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.configKB.Location = new System.Drawing.Point(330, 9);
-            this.configKB.Name = "configKB";
-            this.configKB.Size = new System.Drawing.Size(124, 25);
-            this.configKB.TabIndex = 7;
-            this.configKB.Text = "Test Edit";
-            // 
-            // psychButton
-            // 
-            this.psychButton.Location = new System.Drawing.Point(468, 192);
-            this.psychButton.Name = "psychButton";
-            this.psychButton.Size = new System.Drawing.Size(157, 62);
-            this.psychButton.TabIndex = 8;
-            this.psychButton.Text = "toggle psych";
-            this.psychButton.UseVisualStyleBackColor = true;
-            this.psychButton.Click += new System.EventHandler(this.psychButton_Click);
             // 
             // audioSetterBox
             // 
             this.audioSetterBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.audioSetterBox.FormattingEnabled = true;
-            this.audioSetterBox.Location = new System.Drawing.Point(731, 221);
+            this.audioSetterBox.Location = new System.Drawing.Point(249, 106);
+            this.audioSetterBox.Margin = new System.Windows.Forms.Padding(2);
             this.audioSetterBox.Name = "audioSetterBox";
-            this.audioSetterBox.Size = new System.Drawing.Size(242, 33);
+            this.audioSetterBox.Size = new System.Drawing.Size(123, 21);
             this.audioSetterBox.TabIndex = 9;
             this.audioSetterBox.SelectedIndexChanged += new System.EventHandler(this.audioSetterBox_SelectedIndexChanged);
             this.audioSetterBox.Click += new System.EventHandler(this.audioSetterBox_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(368, 109);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(173, 29);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Capture Input";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            this.checkBox1.CheckStateChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
-            // 
-            // volumeSlider
-            // 
-            this.volumeSlider.Location = new System.Drawing.Point(-2, 221);
-            this.volumeSlider.Name = "volumeSlider";
-            this.volumeSlider.Size = new System.Drawing.Size(173, 90);
-            this.volumeSlider.TabIndex = 11;
-            this.volumeSlider.Value = 10;
-            this.volumeSlider.ValueChanged += new System.EventHandler(this.volumeSlider_ValueChanged);
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(589, 47);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 31);
-            this.numericUpDown1.TabIndex = 12;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
-            // 
             // minAdjust
             // 
-            this.minAdjust.Location = new System.Drawing.Point(758, 108);
+            this.minAdjust.Location = new System.Drawing.Point(379, 30);
+            this.minAdjust.Margin = new System.Windows.Forms.Padding(2);
             this.minAdjust.Name = "minAdjust";
-            this.minAdjust.Size = new System.Drawing.Size(56, 31);
+            this.minAdjust.Size = new System.Drawing.Size(41, 20);
             this.minAdjust.TabIndex = 13;
             // 
             // secAdjust
             // 
-            this.secAdjust.Location = new System.Drawing.Point(820, 107);
+            this.secAdjust.Location = new System.Drawing.Point(424, 30);
+            this.secAdjust.Margin = new System.Windows.Forms.Padding(2);
             this.secAdjust.Name = "secAdjust";
-            this.secAdjust.Size = new System.Drawing.Size(72, 31);
+            this.secAdjust.Size = new System.Drawing.Size(46, 20);
             this.secAdjust.TabIndex = 14;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(753, 79);
+            this.label6.Location = new System.Drawing.Point(376, 9);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(189, 25);
+            this.label6.Size = new System.Drawing.Size(94, 13);
             this.label6.TabIndex = 15;
             this.label6.Text = "Minutes | Seconds";
             // 
-            // button1
+            // AddTimeBtn
             // 
-            this.button1.Location = new System.Drawing.Point(758, 145);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(134, 33);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "Add time";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.AddTimeBtn.Location = new System.Drawing.Point(320, 54);
+            this.AddTimeBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.AddTimeBtn.Name = "AddTimeBtn";
+            this.AddTimeBtn.Size = new System.Drawing.Size(83, 24);
+            this.AddTimeBtn.TabIndex = 16;
+            this.AddTimeBtn.Text = "Add time";
+            this.AddTimeBtn.UseVisualStyleBackColor = true;
+            this.AddTimeBtn.Click += new System.EventHandler(this.AddTimeBtn_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(-7, 193);
+            this.label7.Location = new System.Drawing.Point(178, 66);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(62, 25);
+            this.label7.Size = new System.Drawing.Size(68, 13);
             this.label7.TabIndex = 18;
-            this.label7.Text = "Boop";
+            this.label7.Text = "Audio Sound";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(188, 193);
+            this.label8.Location = new System.Drawing.Point(178, 30);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(135, 25);
+            this.label8.Size = new System.Drawing.Size(68, 13);
             this.label8.TabIndex = 19;
             this.label8.Text = "Video Sound";
             // 
-            // numericUpDown2
+            // VideoSoundUpDown
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(193, 221);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 31);
-            this.numericUpDown2.TabIndex = 20;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.VideoSoundUpDown.Location = new System.Drawing.Point(181, 42);
+            this.VideoSoundUpDown.Margin = new System.Windows.Forms.Padding(2);
+            this.VideoSoundUpDown.Name = "VideoSoundUpDown";
+            this.VideoSoundUpDown.Size = new System.Drawing.Size(60, 20);
+            this.VideoSoundUpDown.TabIndex = 20;
+            this.VideoSoundUpDown.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
+            this.VideoSoundUpDown.ValueChanged += new System.EventHandler(this.VideoSoundUpDown_ValueChanged);
+            // 
+            // HintSoundUpDown
+            // 
+            this.HintSoundUpDown.Location = new System.Drawing.Point(181, 81);
+            this.HintSoundUpDown.Margin = new System.Windows.Forms.Padding(2);
+            this.HintSoundUpDown.Name = "HintSoundUpDown";
+            this.HintSoundUpDown.Size = new System.Drawing.Size(60, 20);
+            this.HintSoundUpDown.TabIndex = 21;
+            this.HintSoundUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.HintSoundUpDown.ValueChanged += new System.EventHandler(this.HintSoundUpDown_ValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(258, 88);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(102, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Select Audio Output";
+            // 
+            // SubtractTimeBtn
+            // 
+            this.SubtractTimeBtn.Location = new System.Drawing.Point(408, 55);
+            this.SubtractTimeBtn.Name = "SubtractTimeBtn";
+            this.SubtractTimeBtn.Size = new System.Drawing.Size(84, 23);
+            this.SubtractTimeBtn.TabIndex = 23;
+            this.SubtractTimeBtn.Text = "Subtract Time";
+            this.SubtractTimeBtn.UseVisualStyleBackColor = true;
+            this.SubtractTimeBtn.Click += new System.EventHandler(this.SubtractTimeBtn_Click);
+            // 
+            // ExcelWriteBtn
+            // 
+            this.ExcelWriteBtn.Location = new System.Drawing.Point(12, 115);
+            this.ExcelWriteBtn.Name = "ExcelWriteBtn";
+            this.ExcelWriteBtn.Size = new System.Drawing.Size(124, 23);
+            this.ExcelWriteBtn.TabIndex = 24;
+            this.ExcelWriteBtn.Text = "Write to Excel";
+            this.ExcelWriteBtn.UseVisualStyleBackColor = true;
+            this.ExcelWriteBtn.Click += new System.EventHandler(this.ExcelWriteBtn_Click);
+            // 
+            // SNQBtn
+            // 
+            this.SNQBtn.Location = new System.Drawing.Point(395, 106);
+            this.SNQBtn.Name = "SNQBtn";
+            this.SNQBtn.Size = new System.Drawing.Size(75, 23);
+            this.SNQBtn.TabIndex = 25;
+            this.SNQBtn.Text = "SnQ";
+            this.SNQBtn.UseVisualStyleBackColor = true;
+            this.SNQBtn.Click += new System.EventHandler(this.SNQBtn_Click);
+            // 
+            // FontAdjuster
+            // 
+            this.FontAdjuster.Location = new System.Drawing.Point(282, 16);
+            this.FontAdjuster.Margin = new System.Windows.Forms.Padding(2);
+            this.FontAdjuster.Name = "FontAdjuster";
+            this.FontAdjuster.Size = new System.Drawing.Size(41, 20);
+            this.FontAdjuster.TabIndex = 26;
+            this.FontAdjuster.ValueChanged += new System.EventHandler(this.FontAdjuster_ValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(279, 1);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(51, 13);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "Font Size";
             // 
             // configWin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1005, 266);
-            this.Controls.Add(this.numericUpDown2);
+            this.ClientSize = new System.Drawing.Size(502, 138);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.FontAdjuster);
+            this.Controls.Add(this.SNQBtn);
+            this.Controls.Add(this.ExcelWriteBtn);
+            this.Controls.Add(this.SubtractTimeBtn);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.HintSoundUpDown);
+            this.Controls.Add(this.VideoSoundUpDown);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.AddTimeBtn);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.secAdjust);
             this.Controls.Add(this.minAdjust);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.volumeSlider);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.audioSetterBox);
-            this.Controls.Add(this.psychButton);
-            this.Controls.Add(this.configKB);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.fontAdjustLabel);
-            this.Controls.Add(this.fontAdjuster);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "configWin";
             this.Text = "configWin";
-            ((System.ComponentModel.ISupportInitialize)(this.fontAdjuster)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.volumeSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minAdjust)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.secAdjust)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VideoSoundUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HintSoundUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FontAdjuster)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.NumericUpDown fontAdjuster;
-        private System.Windows.Forms.Label fontAdjustLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button psychButton;
-        public System.Windows.Forms.Label configKB;
         private System.Windows.Forms.ComboBox audioSetterBox;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TrackBar volumeSlider;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown minAdjust;
         private System.Windows.Forms.NumericUpDown secAdjust;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddTimeBtn;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown VideoSoundUpDown;
+        private System.Windows.Forms.NumericUpDown HintSoundUpDown;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button SubtractTimeBtn;
+        private System.Windows.Forms.Button ExcelWriteBtn;
+        private System.Windows.Forms.Button SNQBtn;
+        private System.Windows.Forms.NumericUpDown FontAdjuster;
+        private System.Windows.Forms.Label label10;
     }
 }

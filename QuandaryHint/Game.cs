@@ -1,5 +1,9 @@
 ﻿
 
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
 namespace QuandaryHint
 {
     public class Game
@@ -15,7 +19,9 @@ namespace QuandaryHint
 
         private bool paused = false;
 
-        private GameOptions gameOptions;
+        public GameOptions gameOptions;
+
+        public uint i;
         #endregion 
 
 
@@ -40,12 +46,14 @@ namespace QuandaryHint
 
             ParseGameOptions(gameOpt);
 
-            
+
             gameVideo.DisplayFrame();
             previewVideo.DisplayFrame();
+
             
         }
 
+       
         /// <summary>
         /// Passes on the values from the passed struct to appropriate
         /// local variables
@@ -53,12 +61,18 @@ namespace QuandaryHint
         /// <param name="game"></param>
         private void ParseGameOptions(GameOptions game)
         {
+            Console.WriteLine("Passed hint volume: " + game.gameVolume);
             gameOptions.welcomeMessage = game.welcomeMessage;
             // gameOptions.videoPath = game.videoPath;
-            
+            if (gameOptions.waveOut != 10)
+            {
+                Console.WriteLine("Setting Audio Output to " + game.waveOut);
+                SetAudioOutput((uint)game.waveOut);
+            }
             gameOptions.hintFont = game.hintFont;
             gameOptions.gameMode = game.gameMode;
             gameOptions.fontColor = game.fontColor;
+            gameOptions.hintFontSize = game.hintFontSize;
             // gameOptions.audioPath = game.audioPath;
             gameOptions.timerOffset = game.timerOffset;
             gameOptions.gameMode = game.gameMode;
@@ -100,13 +114,26 @@ namespace QuandaryHint
             else
                 sec = ((int)seconds).ToString();
 
-           escape = (int)minutes + ":" + sec;
+            
+            Console.WriteLine((int)minutes);
+            Console.WriteLine(sec);
+            escape = (int)minutes + ":" + sec;
 
 
 
             return escape;
         }
       
+        /// <summary>
+        /// Sets the waveout device for the audio objects
+        /// </summary>
+        /// <param name="i"></param>
+        public void SetAudioOutput(uint i)
+        {
+            videoSound.SetAudioOutput(i);
+            hintSound.SetAudioOutput(i);
+            this.i = i;
+        }
 
         /// <summary>
         /// Plays the sound for pushing hints
@@ -122,6 +149,7 @@ namespace QuandaryHint
             gameVideo.ToggleBorder();
             SetupHintWindows();
             AlignHintWindows();
+            ResetGame();
         }
 
         #region Game State Methods
@@ -154,6 +182,31 @@ namespace QuandaryHint
             gameVideo.PausePlayback();
             previewVideo.PausePlayback();
             videoSound.PausePlayback();
+            gameVideo.UpdatePlaybackPosition();
+        }
+
+        /// <summary>
+        /// Rewinds the video/audio
+        /// </summary>
+        /// <param name="minutes"></param>
+        /// <param name="seconds"></param>
+        public void RewindGame(double minutes, double seconds)
+        {
+            gameVideo.Rewind(minutes, seconds);
+            previewVideo.Rewind(minutes, seconds);
+            videoSound.Rewind(minutes, seconds);
+        }
+
+        /// <summary>
+        /// Fast forwards the video/audio
+        /// </summary>
+        /// <param name="minutes"></param>
+        /// <param name="seconds"></param>
+        public void FastForward(double minutes, double seconds)
+        {
+            gameVideo.FastForward(minutes, seconds);
+            previewVideo.FastForward(minutes, seconds);
+            videoSound.FastForward(minutes, seconds);
         }
 
         /// <summary>
@@ -161,10 +214,11 @@ namespace QuandaryHint
         /// </summary>
         public void TogglePaused()
         {
+            gameVideo.UpdatePlaybackPosition();
             if (!paused)
             {
                 PauseGame();
-                gameVideo.UpdatePlaybackPosition();
+                
                 paused = true;
                
             }
@@ -181,7 +235,7 @@ namespace QuandaryHint
         /// </summary>
         public void Escape()
         {
-            PauseGame();
+            TogglePaused();
             if (gameOptions.gameMode == "The Psych Ward")
             {
                 gameVideo.SetPath(@"C:\DI_Victory.wmv");
@@ -206,6 +260,8 @@ namespace QuandaryHint
             previewVideo.DisplayFrame();
         }
         #endregion
+
+        #region Hint window methods
 
         /// <summary>
         /// Sets the hint text of both windows
@@ -267,12 +323,31 @@ namespace QuandaryHint
             
         }
 
+        #endregion
 
+        public void WriteConfigFile(string excelPath)
+        {
+            StreamWriter sw = new StreamWriter(gameOptions.gameMode + "_config.txt");
+            //excel path
+            sw.WriteLine(excelPath);
+            //font size
+            sw.WriteLine(gameHint.hintWindowFont);
+            //hint volume
+            sw.WriteLine(hintSound.volume);
+            //video volume
+            sw.WriteLine(videoSound.volume);
+            //Audio output device
+            sw.WriteLine(i);
 
-      
-
-     
+            sw.Close();
+        }
 
         
+
+
+
+
+
+
     }
 }

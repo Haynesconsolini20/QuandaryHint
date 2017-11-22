@@ -71,12 +71,16 @@ namespace QuandaryHint
         {
             double offset = videoOffset;
             SetPosition(0.0, offset);
-            Task wait = Task.Delay(500);
+            Task wait = Task.Delay(600);
             ResumePlayback();
             await wait;
             PausePlayback();
 
+           
+
         }
+
+        
 
         public double GetPlaybackPosition() { return playbackPosition; }
 

@@ -11,6 +11,8 @@ namespace QuandaryHint
         //Is it the preview window?
         bool preview;
 
+        public int hintWindowFont;
+
         /// <summary>
         /// NDC taking a bool
         /// for if it's a preview window or the game window
@@ -37,6 +39,7 @@ namespace QuandaryHint
             else
                 hint.hintLabel.Font = gameO.hintFont;
 
+            hintWindowFont = gameO.hintFontSize;
             hint.hintLabel.ForeColor = gameO.fontColor;
             hint.Text = gameO.gameMode + " Hints";
 
@@ -125,6 +128,12 @@ namespace QuandaryHint
         /// </summary>
         public void ShowWindow() => hint.Show();
 
+        public void EditFontSize(int size)
+        {
+            string holderFont = hint.hintLabel.Font.Name;
+            hint.hintLabel.Font = new Font(holderFont, size);
+            hintWindowFont = size;
+        }
 
 
     }

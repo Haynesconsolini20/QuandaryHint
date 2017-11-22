@@ -17,7 +17,9 @@ namespace QuandaryHint
         public double videoOffset;
         public int gameVolume;
         public int hintVolume;
-        
+        public int gameColumn;
+        public int hintFontSize;
+        public int waveOut;
         
         
 
@@ -34,12 +36,14 @@ namespace QuandaryHint
         public gameSelect()
         {
             InitializeComponent();
+            gameOptions.waveOut = 10;
         }
 
         private void lockedInDead_Click(object sender, EventArgs e)
         {
             gameOptions.welcomeMessage = "Welcome to the Locked in Dead...";
-            gameOptions.hintFont = new Font("Chiller", 51);
+            gameOptions.hintFontSize = 51;
+            gameOptions.hintFont = new Font("Chiller", gameOptions.hintFontSize);
             gameOptions.previewFont = new Font("Chiller", 12);
             gameOptions.fontColor = Color.White;
             gameOptions.gameMode = "The Locked In Dead";
@@ -49,13 +53,15 @@ namespace QuandaryHint
             gameOptions.videoOffset = 0;
             gameOptions.hintVolume = 5;
             gameOptions.gameVolume = 9;
+            gameOptions.gameColumn = 1;
             this.Close();
         }
 
         private void runawayTrain_Click(object sender, EventArgs e)
         {
             gameOptions.welcomeMessage = "Welcome to the Runaway Train...";
-            gameOptions.hintFont = new Font("Lucida Console", 22);
+            gameOptions.hintFontSize = 22;
+            gameOptions.hintFont = new Font("Lucida Console", gameOptions.hintFontSize);
             gameOptions.previewFont = new Font("Lucida Console", 12);
             gameOptions.fontColor = Color.Green;
             gameOptions.gameMode = "The Runaway Train";
@@ -65,6 +71,7 @@ namespace QuandaryHint
             gameOptions.videoOffset = 3740;
             gameOptions.hintVolume = 10;
             gameOptions.gameVolume = 10;
+            gameOptions.gameColumn = 7;
             this.Close();
         }
 
@@ -72,7 +79,8 @@ namespace QuandaryHint
         {
             gameOptions.gameMode = "The Psych Ward";
             gameOptions.welcomeMessage = "Welcome to the Dynaline Incident";
-            gameOptions.hintFont = new Font("Ailerons", 22);
+            gameOptions.hintFontSize = 22;
+            gameOptions.hintFont = new Font("Ailerons", gameOptions.hintFontSize);
             gameOptions.previewFont = new Font("Ailerons", 12);
             gameOptions.fontColor = Color.White;
             gameOptions.audioPath = @"assets\dynalineSound.mp3";
@@ -81,6 +89,7 @@ namespace QuandaryHint
             gameOptions.videoOffset = 95;
             gameOptions.hintVolume = 1;
             gameOptions.gameVolume = 5;
+            gameOptions.gameColumn = 13;
             this.Close();
         }
     }
