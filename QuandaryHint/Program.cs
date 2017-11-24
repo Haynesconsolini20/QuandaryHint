@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
+
 
 namespace QuandaryHint
 {
@@ -18,7 +18,7 @@ namespace QuandaryHint
             Application.SetCompatibleTextRenderingDefault(false);
             gameSelect gamePicker = new gameSelect();
             Application.Run(gamePicker);
-            Application.Run(new Form1(new hintWindow(), gamePicker));     
+            Application.Run(new Form1(gamePicker));     
         }
     }
 }

@@ -4,9 +4,14 @@ namespace QuandaryHint
 {
     public class Audio
     {
+
+        #region Variables
         //The variable that this wrapper is for
         private ZPlay sound;
+
+        //A variable we can fetch for the config files
         public int volume;
+        #endregion
 
         #region Constructors
 

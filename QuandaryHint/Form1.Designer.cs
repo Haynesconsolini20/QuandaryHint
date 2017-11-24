@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.HintPusher = new System.Windows.Forms.Button();
             this.hintEntry = new System.Windows.Forms.TextBox();
             this.configButton = new System.Windows.Forms.Button();
@@ -131,9 +132,9 @@
             this.label3.Location = new System.Drawing.Point(12, 157);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 13);
+            this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 11;
-            this.label3.Text = "much longer label to see";
+            this.label3.Text = "Escape Time";
             // 
             // StartVideoBtn
             // 
@@ -285,6 +286,7 @@
             this.Controls.Add(this.configButton);
             this.Controls.Add(this.hintEntry);
             this.Controls.Add(this.HintPusher);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";

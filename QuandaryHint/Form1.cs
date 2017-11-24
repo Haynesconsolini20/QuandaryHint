@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using RawInput_dll;
-using System.Drawing;
 using System.IO;
 using System.ComponentModel;
 
@@ -54,37 +53,40 @@ namespace QuandaryHint
 
         //background worker to open excel without ruining literally everything
         BackgroundWorker bwExcel = new BackgroundWorker();
+
+        //Timer for introducing to welcome message automatically
+        Timer welcomeTimer = new Timer();
        
 
         #endregion
 
         #region Constructors
-        public Form1(hintWindow hintWin, gameSelect gameSel)
+        public Form1(gameSelect gameSel)
         {
+            //Start the form
             InitializeComponent();
 
-
+            
+            //Get our game options, then override them if there's a config file
             ParseGameOptions(gameSel.gameOptions);
             ReadConfigFile(ref inheritOptions);
 
-
+            //Open excel on a seperate thread to speed things up
             bwExcel.DoWork += bwExcel_DoWork;
-            
             bwExcel.RunWorkerAsync();
 
-            //Get the game select options, and put them into the windows
-            Console.WriteLine("Pre game volume: " + inheritOptions.gameVolume);
+            //Startup our main class
             testGame = new Game(inheritOptions);
+
+            //Open up the configuration window
             _configWin = new configWin(testGame);
-
-
-
-            //Initialize config window
-
 
             //TODO: Look into data linking to get rid of this
             audioToggle.Checked = audioOn;
 
+            //Setting up the welcome message timer
+            welcomeTimer.Interval = (int)(inheritOptions.timerOffset * 1000);
+            welcomeTimer.Tick += new EventHandler(timer_Tick);
             
 
             #region RawInput setup DO NOT TOUCH
@@ -96,47 +98,63 @@ namespace QuandaryHint
             #endregion
         }
 
-       
+
         #endregion
 
+        #region Config file handling
+
+        /// <summary>
+        /// Handles the reading of config file settings into variables. If there isn't one it'll create one for future
+        /// use with no data in it.
+        /// </summary>
+        /// <param name="inheritOptions"></param>
         private void ReadConfigFile(ref GameOptions inheritOptions)
         {
-
-
             string configPath = inheritOptions.gameMode + "_config.txt";
 
-            Console.WriteLine("Checking for file...");
+            //If there isn't a file
             if (!File.Exists(configPath))
             {
-                Console.WriteLine("File does not exist. Creating it..");
+                //Make one with some junk in it
                 StreamWriter sw = new StreamWriter(configPath);
                 sw.WriteLine("null");
                 sw.Close();
 
+                //Find an excel file to edit
                 OpenFileDialog opend = new OpenFileDialog();
                 DialogResult result = opend.ShowDialog(); // Show the dialog.
                 if (result == DialogResult.OK) // Test result.
                     excelPath = opend.FileName;
                
             }
-            else
+            //If there is...
+            else 
             {
-                Console.WriteLine("File exists. Parsing data..");
+                //Open up the file
                 StreamReader sr = new StreamReader(configPath);
 
+                //Read in our data
                 excelPath = sr.ReadLine();
                 inheritOptions.hintFontSize = Int32.Parse(sr.ReadLine());
                 inheritOptions.hintVolume = Int32.Parse(sr.ReadLine());
                 inheritOptions.gameVolume = Int32.Parse(sr.ReadLine());
                 inheritOptions.waveOut = Int32.Parse(sr.ReadLine());
-                //audio output
-
-                Console.WriteLine("Game volume is " + inheritOptions.gameVolume);
+               
             }
-       
-           
+        }
+
+        /// <summary>
+        /// Write the current settings to a config file whenever we close out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            testGame.WriteConfigFile(excelPath);
 
         }
+
+        #endregion
 
         #region Hint Pushing
 
@@ -177,34 +195,6 @@ namespace QuandaryHint
         }
         #endregion
 
-        #region Event Handlers
-
-        /// <summary>
-        /// Pushes the hint with sound, just in case the keyboard doesn't work
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HintPusher_Click(object sender, EventArgs e)
-        {
-            pushHint(true);
-        }
-    
-        
-       
-
-       
-        
-     
-        /// <summary>
-        /// Shows the configuration window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void configButton_Click(object sender, EventArgs e) => _configWin.Show();
-
-
-
-
         #region Keyboard interaction
 
         /// <summary>
@@ -225,13 +215,13 @@ namespace QuandaryHint
                         HandleInput(rawInputKeyboard.processed, hintEntry);
                 }
             }
-                
+
         }
 
-       /// <summary>
-       /// Turns rawinput into meaningful text entry
-       /// </summary>
-       /// <param name="output"></param>
+        /// <summary>
+        /// Turns rawinput into meaningful text entry
+        /// </summary>
+        /// <param name="output"></param>
         void HandleInput(string output, TextBox hintEntry)
         {
 
@@ -262,7 +252,7 @@ namespace QuandaryHint
                 hintEntry.Text = "";
                 pushHint(false);
                 cursorPos = 0;
-                
+
                 //This is to compensate for the pushHint upping it one
                 updateHintCount(-1);
 
@@ -284,7 +274,7 @@ namespace QuandaryHint
 
                 //Compensate for pushHint
                 updateHintCount(0);
-                
+
             }
 
             else if (output == "ENTER")
@@ -305,38 +295,24 @@ namespace QuandaryHint
 
         }
 
-     
+
         #endregion
 
-       
+        #region Misc Private methods
 
         /// <summary>
-        /// Toggles hint audio on and off
+        /// When the timer hits the tick(start of the game), it displays the
+        /// welcome message and then stops the timer so we can use it next
+        /// round
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void audioToggle_CheckStateChanged(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
-            audioOn = audioToggle.Checked;
+            testGame.SetHintText(inheritOptions.welcomeMessage);
+            welcomeTimer.Stop();
         }
 
-        /// <summary>
-       /// Begins a round
-       /// </summary>
-       /// <param name="sender"></param>
-       /// <param name="e"></param>
-        private void StartVideoBtn_Click(object sender, EventArgs e) => testGame.StartGame();
-
-        /// <summary>
-        /// Aligns the hint windows to their videos
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AlignHintsBtn_Click(object sender, EventArgs e)
-        {
-            testGame.AlignHintWindows();
-        }
-        
         /// <summary>
         /// Parses the game mode information from the first window
         /// </summary>
@@ -358,6 +334,68 @@ namespace QuandaryHint
             inheritOptions.hintFontSize = game.hintFontSize;
         }
 
+        /// <summary>
+        /// Background worker1's task
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bwExcel_DoWork(object sender, DoWorkEventArgs e)
+        {
+            excel = new Excel(excelPath, 1, inheritOptions.gameColumn);
+        }
+
+        #endregion
+
+        #region Clicking events
+
+        /// <summary>
+        /// Pushes the hint with sound, just in case the keyboard doesn't work
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HintPusher_Click(object sender, EventArgs e)
+        {
+            pushHint(true);
+        }
+    
+        /// <summary>
+        /// Shows the configuration window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void configButton_Click(object sender, EventArgs e) => _configWin.Show();
+
+        /// <summary>
+        /// Toggles hint audio on and off
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void audioToggle_CheckStateChanged(object sender, EventArgs e)
+        {
+            audioOn = audioToggle.Checked;
+        }
+
+        /// <summary>
+        /// Begins a round
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartVideoBtn_Click(object sender, EventArgs e)
+        {
+            testGame.StartGame();
+            welcomeTimer.Start();
+            Console.WriteLine("Timer started");
+        }
+
+        /// <summary>
+        /// Aligns the hint windows to their videos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AlignHintsBtn_Click(object sender, EventArgs e)
+        {
+            testGame.AlignHintWindows();
+        }
        
         /// <summary>
         /// Toggles the paused state of the game
@@ -370,7 +408,6 @@ namespace QuandaryHint
             label3.Text = testGame.GetEscapeTime();
         }
 
-     
         /// <summary>
         /// Manually updates the hint count for the game
         /// </summary>
@@ -408,6 +445,7 @@ namespace QuandaryHint
             excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, testGame.GetEscapeTime(), true);
             TeamNameEntry.Text = "blank";
             TeamSizeEntry.Value = 0;
+            testGame.SetHintText("");
             
             Console.WriteLine("appended to doc");
         }
@@ -434,6 +472,8 @@ namespace QuandaryHint
                 excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, "0", false);
             TeamNameEntry.Text = "blank";
             TeamSizeEntry.Value = 0;
+            label3.Text = "Escape Time";
+            testGame.SetHintText("");
 
             Console.WriteLine("appended to doc");
         }
@@ -451,23 +491,19 @@ namespace QuandaryHint
                 captureOnlyInForeground = true;
         }
 
-        /// <summary>
-        /// Background worker1's task
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void bwExcel_DoWork(object sender, DoWorkEventArgs e)
-        {
-            excel = new Excel(excelPath, 1, inheritOptions.gameColumn);
-        }
+        
 
       
 
 
-        #endregion
+       
         
 
-
+        /// <summary>
+        /// Brings the RawInput events to the team entry text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TeamNameEntry_Click(object sender, EventArgs e)
         {
             TeamEntryFocused = true;
@@ -476,15 +512,17 @@ namespace QuandaryHint
 
         }
 
+        /// <summary>
+        /// Brings the RawInput events to the hint entry text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void hintEntry_Click(object sender, EventArgs e)
         {
             TeamEntryFocused = false;
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            testGame.WriteConfigFile(excelPath);
 
-        }
+        #endregion
     }
 }

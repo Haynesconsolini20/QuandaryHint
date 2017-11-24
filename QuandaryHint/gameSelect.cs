@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace QuandaryHint
 {
+    /// <summary>
+    /// Struct definition for storing game options
+    /// </summary>
     public struct GameOptions
     {
         public string welcomeMessage;
@@ -27,18 +30,30 @@ namespace QuandaryHint
 
     public partial class gameSelect : Form
     {
-        
-        //.8 video offset for dynaline
-        //1 for dead
-        //?? for train
+        #region Variables
+        //Struct to store options
         public GameOptions gameOptions;
+        #endregion
 
+        #region Constructors
+
+        /// <summary>
+        /// Sets the waveout to 10, since that is a universal default
+        /// </summary>
         public gameSelect()
         {
             InitializeComponent();
             gameOptions.waveOut = 10;
         }
+        #endregion
 
+        #region Event Handlers
+
+        /// <summary>
+        /// Sets game options for the Locked in Dead
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lockedInDead_Click(object sender, EventArgs e)
         {
             gameOptions.welcomeMessage = "Welcome to the Locked in Dead...";
@@ -57,6 +72,11 @@ namespace QuandaryHint
             this.Close();
         }
 
+        /// <summary>
+        /// Sets game options for The Runaway Train
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void runawayTrain_Click(object sender, EventArgs e)
         {
             gameOptions.welcomeMessage = "Welcome to the Runaway Train...";
@@ -75,6 +95,11 @@ namespace QuandaryHint
             this.Close();
         }
 
+        /// <summary>
+        /// Sets game options for the Dynaline Incident
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void psychWard_Click(object sender, EventArgs e)
         {
             gameOptions.gameMode = "The Psych Ward";
@@ -92,5 +117,7 @@ namespace QuandaryHint
             gameOptions.gameColumn = 13;
             this.Close();
         }
+
+        #endregion
     }
 }

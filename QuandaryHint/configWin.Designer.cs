@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(configWin));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,8 +45,6 @@
             this.HintSoundUpDown = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.SubtractTimeBtn = new System.Windows.Forms.Button();
-            this.ExcelWriteBtn = new System.Windows.Forms.Button();
-            this.SNQBtn = new System.Windows.Forms.Button();
             this.FontAdjuster = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minAdjust)).BeginInit();
@@ -222,26 +221,6 @@
             this.SubtractTimeBtn.UseVisualStyleBackColor = true;
             this.SubtractTimeBtn.Click += new System.EventHandler(this.SubtractTimeBtn_Click);
             // 
-            // ExcelWriteBtn
-            // 
-            this.ExcelWriteBtn.Location = new System.Drawing.Point(12, 115);
-            this.ExcelWriteBtn.Name = "ExcelWriteBtn";
-            this.ExcelWriteBtn.Size = new System.Drawing.Size(124, 23);
-            this.ExcelWriteBtn.TabIndex = 24;
-            this.ExcelWriteBtn.Text = "Write to Excel";
-            this.ExcelWriteBtn.UseVisualStyleBackColor = true;
-            this.ExcelWriteBtn.Click += new System.EventHandler(this.ExcelWriteBtn_Click);
-            // 
-            // SNQBtn
-            // 
-            this.SNQBtn.Location = new System.Drawing.Point(395, 106);
-            this.SNQBtn.Name = "SNQBtn";
-            this.SNQBtn.Size = new System.Drawing.Size(75, 23);
-            this.SNQBtn.TabIndex = 25;
-            this.SNQBtn.Text = "SnQ";
-            this.SNQBtn.UseVisualStyleBackColor = true;
-            this.SNQBtn.Click += new System.EventHandler(this.SNQBtn_Click);
-            // 
             // FontAdjuster
             // 
             this.FontAdjuster.Location = new System.Drawing.Point(282, 16);
@@ -268,8 +247,6 @@
             this.ClientSize = new System.Drawing.Size(502, 138);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.FontAdjuster);
-            this.Controls.Add(this.SNQBtn);
-            this.Controls.Add(this.ExcelWriteBtn);
             this.Controls.Add(this.SubtractTimeBtn);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.HintSoundUpDown);
@@ -286,6 +263,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "configWin";
             this.Text = "configWin";
@@ -316,8 +294,6 @@
         private System.Windows.Forms.NumericUpDown HintSoundUpDown;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button SubtractTimeBtn;
-        private System.Windows.Forms.Button ExcelWriteBtn;
-        private System.Windows.Forms.Button SNQBtn;
         private System.Windows.Forms.NumericUpDown FontAdjuster;
         private System.Windows.Forms.Label label10;
     }

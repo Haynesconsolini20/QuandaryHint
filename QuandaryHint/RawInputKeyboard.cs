@@ -5,37 +5,63 @@ namespace QuandaryHint
 {
     class RawInputKeyboard
     {
-        bool ctrl;
-        bool shift;
+
+        #region Variables
+        //Holds the key state of modifier keys
+        bool ctrl = false;
+        bool shift = false;
+
+        //The eventarg we're processing
         RawInputEventArg e;
+
+        //Arrays to use for processing, represenatative of keyboard layouts
         static char[] shiftNumberRow = ")!@#$%^&*(".ToCharArray();
         static char[] miscChars = "`-=[]\\;',./".ToCharArray();
         static int[] miscKeys = { 192, 189, 187, 219, 221, 220, 186, 222, 188, 190, 191 };
         static char[] shiftMiscChars = "~_+{}|:\"<>?".ToCharArray();
-        public string processed;
-        int vKey;
-        bool make;
-        public string source;
 
+        //For the finished product
+        public string processed;
+
+        //Stores vKey of the current key press
+        int vKey;
+
+        //State of the key
+        bool make;
+
+        //Device sending the key press
+        public string source = "void";
+
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Default constructor, does nothing.
+        /// </summary>
         public RawInputKeyboard()
         {
-            ctrl = false;
-            shift = false;
-            processed = "void";
         }
+        #endregion
 
+        #region Public methods
+        /// <summary>
+        /// Main class method that turns an event arg into a string
+        /// </summary>
+        /// <param name="raw"></param>
         public void ProcessInput(RawInputEventArg raw)
         {
+            //Set up the variables for our logic trees
             e = raw;
             vKey = e.KeyPressEvent.VKey;
             source = e.KeyPressEvent.Source;
 
+            //Using a variable makes the code look a lot nicer
             if (e.KeyPressEvent.KeyPressState == "MAKE")
                 make = true;
             else
                 make = false;
             
-
+            //Logic tree, methods explain what's happening
             if (make)
             {
                 if (vKey >= 65 && vKey <= 90)
@@ -59,6 +85,9 @@ namespace QuandaryHint
                     ProcessSpecial();
                 }
             }
+
+            //Release our modifier keys, set the string to void as to not trigger when the key
+            //is in a BREAK state
             if (!make)
             {
                 if (vKey == 16)
@@ -73,6 +102,10 @@ namespace QuandaryHint
            
         }
 
+        /// <summary>
+        /// Checks to see if we are ready to return an output string
+        /// </summary>
+        /// <returns></returns>
         public bool OutputReady()
         {
             if (processed == "void")
@@ -80,7 +113,13 @@ namespace QuandaryHint
             else
                 return true;
         }
-        
+
+        #endregion
+
+        #region Private methods
+        /// <summary>
+        /// Handles the pressing of letters
+        /// </summary>
         private void ProcessLetters()
         {
             char letter = (char)vKey;
@@ -99,6 +138,9 @@ namespace QuandaryHint
             }
         }
 
+        /// <summary>
+        /// Handles the pressing of numbers
+        /// </summary>
         private void ProcessNumbers()
         {
             if (shift)
@@ -114,6 +156,9 @@ namespace QuandaryHint
 
         }
 
+        /// <summary>
+        /// Handles the pressing of other keys
+        /// </summary>
         private void ProcessCharacters()
         {
             int index = 0;
@@ -136,6 +181,9 @@ namespace QuandaryHint
 
         }
 
+        /// <summary>
+        /// Handles the state of the shift and control keys, used for keyboard shortcuts
+        /// </summary>
         private void ProcessModifiers()
         {
             if (vKey == 16)
@@ -144,6 +192,9 @@ namespace QuandaryHint
                 ctrl = true;
         }
 
+        /// <summary>
+        /// Special key presses used to simulate normal keyboard input
+        /// </summary>
         private void ProcessSpecial()
         {
             if (vKey == 32)
@@ -159,7 +210,7 @@ namespace QuandaryHint
             }
                 
         }
+        #endregion
 
-        
     }
 }

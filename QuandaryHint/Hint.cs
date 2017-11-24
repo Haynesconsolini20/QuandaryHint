@@ -5,14 +5,18 @@ namespace QuandaryHint
 {
     public class Hint
     {
+        #region Variables
         //The window we're wrapping
         hintWindow hint;
 
         //Is it the preview window?
         bool preview;
 
+        //Stores the current font size
         public int hintWindowFont;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// NDC taking a bool
         /// for if it's a preview window or the game window
@@ -25,9 +29,9 @@ namespace QuandaryHint
             SetDoubleBuffered(hint);
           
         }
+        #endregion
 
-        //TODO LIST
-
+        #region Public methods
         /// <summary>
         /// Gets the game options and sets up the label stylistically
         /// </summary>
@@ -52,30 +56,10 @@ namespace QuandaryHint
 
         }
 
-        //Passable to config win --Low priority
-
         /// <summary>
-        /// Used to keep the window from flickering so much during use
+        /// Set the label to a string
         /// </summary>
-        /// <param name="c"></param>
-        private static void SetDoubleBuffered(System.Windows.Forms.Control c)
-        {
-            if (System.Windows.Forms.SystemInformation.TerminalServerSession)
-                return;
-
-            System.Reflection.PropertyInfo aProp =
-                  typeof(System.Windows.Forms.Control).GetProperty(
-                        "DoubleBuffered",
-                        System.Reflection.BindingFlags.NonPublic |
-                        System.Reflection.BindingFlags.Instance);
-
-            aProp.SetValue(c, true, null);
-        }
-
-       /// <summary>
-       /// Set the label to a string
-       /// </summary>
-       /// <param name="hintText"></param>
+        /// <param name="hintText"></param>
         public void SetHint(string hintText)
         {
             hint.hintLabel.Text = hintText;
@@ -128,13 +112,37 @@ namespace QuandaryHint
         /// </summary>
         public void ShowWindow() => hint.Show();
 
+        /// <summary>
+        /// Changes the font size and stores it in a variable for later retrieval
+        /// </summary>
+        /// <param name="size"></param>
         public void EditFontSize(int size)
         {
             string holderFont = hint.hintLabel.Font.Name;
             hint.hintLabel.Font = new Font(holderFont, size);
             hintWindowFont = size;
         }
+        #endregion
 
+        #region Private methods
+        /// <summary>
+        /// Used to keep the window from flickering so much during use
+        /// </summary>
+        /// <param name="c"></param>
+        private static void SetDoubleBuffered(System.Windows.Forms.Control c)
+        {
+            if (System.Windows.Forms.SystemInformation.TerminalServerSession)
+                return;
+
+            System.Reflection.PropertyInfo aProp =
+                  typeof(System.Windows.Forms.Control).GetProperty(
+                        "DoubleBuffered",
+                        System.Reflection.BindingFlags.NonPublic |
+                        System.Reflection.BindingFlags.Instance);
+
+            aProp.SetValue(c, true, null);
+        }
+        #endregion
 
     }
 }

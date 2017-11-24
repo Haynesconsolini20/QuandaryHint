@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 using System.Threading.Tasks;
 
 namespace QuandaryHint
@@ -80,11 +76,11 @@ namespace QuandaryHint
 
         }
 
-        
-
+        /// <summary>
+        /// Returns the current playback position stored
+        /// </summary>
+        /// <returns></returns>
         public double GetPlaybackPosition() { return playbackPosition; }
-
-        
         
         /// <summary>
         /// Starts video playback

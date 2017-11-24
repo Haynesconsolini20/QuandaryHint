@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace QuandaryHint
@@ -7,11 +6,16 @@ namespace QuandaryHint
     public partial class videoPane : Form
     {
 
-       
 
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public videoPane()
         {
             InitializeComponent();
+
+            //Sets up the video player properly
             axWindowsMediaPlayer1.Location = new Point(0, 0);
             axWindowsMediaPlayer1.settings.mute = true;
             axWindowsMediaPlayer1.settings.autoStart = false;
@@ -19,36 +23,24 @@ namespace QuandaryHint
             
             
         }
+        #endregion
 
-       
-
-
-
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
+        #region Private methods
+        /// <summary>
+        /// Sets the video to the last second after it ends
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
         {
-            if (e.newState == 1) //&& axWindowsMediaPlayer1.URL == @"C:\DI_Victory.wmv")
+            if (e.newState == 1) 
             {
                 axWindowsMediaPlayer1.Ctlcontrols.currentPosition = axWindowsMediaPlayer1.currentMedia.duration - 1.001;
                 axWindowsMediaPlayer1.Ctlcontrols.play();
                 axWindowsMediaPlayer1.Ctlcontrols.pause();
             }
         }
+        #endregion
 
-        private void axWindowsMediaPlayer1_PositionChange(object sender, AxWMPLib._WMPOCXEvents_PositionChangeEvent e)
-        {
-            if (axWindowsMediaPlayer1.Ctlcontrols.currentPosition == axWindowsMediaPlayer1.currentMedia.duration - 1.00)
-                axWindowsMediaPlayer1.Ctlcontrols.pause();
-        }
     }
 }

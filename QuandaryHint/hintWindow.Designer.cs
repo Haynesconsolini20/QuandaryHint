@@ -58,7 +58,6 @@
             this.Text = "hintWindow";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.SystemColors.WindowText;
-            this.Load += new System.EventHandler(this.hintWindow_Load);
             this.ResumeLayout(false);
 
         }

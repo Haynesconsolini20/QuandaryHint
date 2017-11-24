@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
 using _Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
@@ -11,29 +7,67 @@ namespace QuandaryHint
 {
     class Excel
     {
+        #region Variables
+        //Path to store the file location
         string path;
+
+        //The object being wrapped
         public _Application excel = new _Excel.Application();
 
+        //Workbook to be used
         public  Workbook wb;
+
+        //Worksheet to be used
         public  Worksheet ws;
 
+        //Stores the row that we want to append to
         public int FirstEmptyRow;
-        public int gameColumn;
 
+        //Stores the column we want to append to
+        public int gameColumn;
+        #endregion
+
+        #region Constructors/Destructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="sheet"></param>
+        /// <param name="column"></param>
         public Excel(string path, int sheet, int column)
         {
+            //Set the path variables
             this.path = path;
+
+            //Open up the sheet we want
             wb = excel.Workbooks.Open(path);
             ws = wb.Worksheets[sheet];
+
+            //Find which part of the sheet we'll be appending to
             gameColumn = column;
             FindFirstEmptyRow(column);
+
+            //Hide it all from the user
             excel.Visible = false;
         }
 
+        /// <summary>
+        /// Destructor that saves, quits, and releases the object
+        /// </summary>
         ~Excel()
         {
             SaveAndQuit();
         }
+
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Return the value of a particular cell
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <returns></returns>
         public string ReadCell(int row, int col)
         {
             if (ws.Cells[row, col].Value2 != null)
@@ -42,10 +76,69 @@ namespace QuandaryHint
                 return "";
         }
 
+        /// <summary>
+        /// Write a string to a cell
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="data"></param>
+        public void WriteCell(int row, int col, string data)
+        {
+            ws.Cells[row, col] = data;
+            Console.WriteLine("Wrote " + data + "\n");
+           
+           
+        }
+
+        /// <summary>
+        /// Append game information to the Quandary spreadsheet
+        /// </summary>
+        /// <param name="teamSize"></param>
+        /// <param name="teamName"></param>
+        /// <param name="escapeTime"></param>
+        /// <param name="escaped"></param>
+        public void AppendToDocument(int teamSize, string teamName, string escapeTime, bool escaped)
+        {
+            //Get/write the date
+            DateTime thisDay = DateTime.Today;
+            WriteCell(FirstEmptyRow, gameColumn, thisDay.ToString("d"));
+            
+            //Write the game results
+            WriteCell(FirstEmptyRow, gameColumn + 1, teamSize.ToString());
+            WriteCell(FirstEmptyRow, gameColumn + 2, teamName);
+            WriteCell(FirstEmptyRow, gameColumn + 3, escapeTime);
+
+            //Did they escape?
+            string txt = (escaped) ? "Yes" : "No";
+            WriteCell(FirstEmptyRow, gameColumn + 4, txt);
+
+            //Get to the next empty row without a method call
+            FirstEmptyRow++;
+        }
+        #endregion
+
+        #region Private Methods
+        /// <summary>
+        /// Saves quits, and releases the objects
+        /// </summary>
+        private void SaveAndQuit()
+        {
+            wb.Save();
+            excel.Workbooks.Close();
+            excel.Quit();
+            Marshal.ReleaseComObject(ws);
+            Marshal.ReleaseComObject(wb);
+        }
+
+        /// <summary>
+        /// Find the first empty row in a column
+        /// </summary>
+        /// <param name="column"></param>
         private void FindFirstEmptyRow(int column)
         {
+            //Excel arrays start at 1 :(
             int row = 1;
-            
+
             //Find the beginning of the listings
             while (ws.Cells[row, column].Value2 != "Date")
             {
@@ -56,40 +149,8 @@ namespace QuandaryHint
             while (ws.Cells[row, column].Value2 != null)
                 row++;
 
-            FirstEmptyRow = row; 
+            FirstEmptyRow = row;
         }
-
-        public void WriteCell(int row, int col, string data)
-        {
-            ws.Cells[row, col] = data;
-            Console.WriteLine("Wrote " + data + "\n");
-           
-           
-        }
-
-        public void AppendToDocument(int teamSize, string teamName, string escapeTime, bool escaped)
-        {
-
-            DateTime thisDay = DateTime.Today;
-            WriteCell(FirstEmptyRow, gameColumn, thisDay.ToString("d"));
-            
-            WriteCell(FirstEmptyRow, gameColumn + 1, teamSize.ToString());
-            WriteCell(FirstEmptyRow, gameColumn + 2, teamName);
-            WriteCell(FirstEmptyRow, gameColumn + 3, escapeTime);
-
-            string txt = (escaped) ? "Yes" : "No";
-            WriteCell(FirstEmptyRow, gameColumn + 4, txt);
-
-            FirstEmptyRow++;
-        }
-
-        public void SaveAndQuit()
-        {
-            wb.Save();
-            excel.Workbooks.Close();
-            excel.Quit();
-            Marshal.ReleaseComObject(ws);
-            Marshal.ReleaseComObject(wb);
-        }
+        #endregion
     }
 }

@@ -9,7 +9,7 @@ namespace QuandaryHint
         #region Variables
         private Game testGame;
         private ZPlay zplayer;
-       // private Excel excel = new Excel(@"C:\Users\samBootcamp\Desktop\testbook.xlsx", 1);
+      
         #endregion
 
         #region Constructors
@@ -17,12 +17,12 @@ namespace QuandaryHint
         {
             InitializeComponent();
             
-            
+
             //Set objects
             this.testGame = testGame;
             zplayer = new ZPlay();
 
-            //label2.Text = excel.ReadCell(1, 1);
+            //Set data-dependent tools
             FontAdjuster.Value = testGame.gameOptions.hintFontSize;
             HintSoundUpDown.Value = testGame.hintSound.volume;
             VideoSoundUpDown.Value = testGame.videoSound.volume;
@@ -63,6 +63,16 @@ namespace QuandaryHint
                 }
 
             }
+        }
+
+        /// <summary>
+        /// Adjusts the font size of the game window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FontAdjuster_ValueChanged(object sender, EventArgs e)
+        {
+            testGame.gameHint.EditFontSize((int)FontAdjuster.Value);
         }
 
         /// <summary>
@@ -133,20 +143,8 @@ namespace QuandaryHint
 
         #endregion
 
-        private void ExcelWriteBtn_Click(object sender, EventArgs e)
-        {
-            
-           
-        }
+      
 
-        private void SNQBtn_Click(object sender, EventArgs e)
-        {
-           // excel.SaveAndQuit();
-        }
-
-        private void FontAdjuster_ValueChanged(object sender, EventArgs e)
-        {
-            testGame.gameHint.EditFontSize((int)FontAdjuster.Value);
-        }
+        
     }
 }

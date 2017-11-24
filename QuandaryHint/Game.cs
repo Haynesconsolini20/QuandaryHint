@@ -1,31 +1,32 @@
-﻿
-
-using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace QuandaryHint
 {
     public class Game
     {
-
         #region Variables
+
+        
         public Audio videoSound;
         public Audio hintSound;
+
         public Video gameVideo;
         public Video previewVideo;
+
         public Hint gameHint;
         public Hint previewHint;
 
+        //Holds the pause state of the game
         private bool paused = false;
 
+        //A struct to hold game mode information
         public GameOptions gameOptions;
 
-        public uint i;
-        #endregion 
+        //Index of the desired waveout device
+        public uint waveOutIndex;
+        #endregion
 
-
-
+        #region Constructors
         /// <summary>
         /// Non-default constructor that takes a GameOptions parameter
         /// </summary>
@@ -52,8 +53,9 @@ namespace QuandaryHint
 
             
         }
+        #endregion
 
-       
+        #region Game setup
         /// <summary>
         /// Passes on the values from the passed struct to appropriate
         /// local variables
@@ -61,84 +63,40 @@ namespace QuandaryHint
         /// <param name="game"></param>
         private void ParseGameOptions(GameOptions game)
         {
-            Console.WriteLine("Passed hint volume: " + game.gameVolume);
-            gameOptions.welcomeMessage = game.welcomeMessage;
-            // gameOptions.videoPath = game.videoPath;
+            //10 here is a placeholder value to indicate that there is no waveout device selected
+            //In theory this breaks if there are 10 sound outputs on a single computer..but I'm
+            //counting on that not happening
             if (gameOptions.waveOut != 10)
-            {
-                Console.WriteLine("Setting Audio Output to " + game.waveOut);
                 SetAudioOutput((uint)game.waveOut);
-            }
+
+            //Copying of the struct
+            gameOptions.welcomeMessage = game.welcomeMessage;
             gameOptions.hintFont = game.hintFont;
             gameOptions.gameMode = game.gameMode;
             gameOptions.fontColor = game.fontColor;
             gameOptions.hintFontSize = game.hintFontSize;
-            // gameOptions.audioPath = game.audioPath;
             gameOptions.timerOffset = game.timerOffset;
             gameOptions.gameMode = game.gameMode;
             gameOptions.videoPath = game.videoPath;
             gameOptions.audioPath = game.audioPath;
+            gameOptions.previewFont = game.previewFont;
+
+
+            //Setup the video classes
             gameVideo.SetPath(game.videoPath);
             gameVideo.videoOffset = game.videoOffset;
             previewVideo.SetPath(game.videoPath);
             previewVideo.videoOffset = game.videoOffset;
            
-                
-            gameOptions.previewFont = game.previewFont;
-            // VIDEO_OFFSET = game.videoOffset;
-            // hintSound.SetPlayerVolume(game.hintVolume, game.hintVolume);
-            //  gameSound.SetPlayerVolume(game.gameVolume, game.gameVolume);
-
+            //Setup the audio classes
             hintSound.SetVolume(game.hintVolume);
-
             videoSound.SetVolume(game.gameVolume);
             videoSound.SetPath(game.audioPath);
 
+            //Another function to setup hint classes
             gameHint.CopyGameOptions(game);
             previewHint.CopyGameOptions(game);
         }
-
-        /// <summary>
-        /// Returns the current escape time as a string
-        /// </summary>
-        /// <returns></returns>
-        public string GetEscapeTime()
-        {
-            string escape;
-
-            double minutes = (gameVideo.GetPlaybackPosition() - gameOptions.timerOffset) / 60;
-            double seconds = (gameVideo.GetPlaybackPosition() - gameOptions.timerOffset) % 60;
-            string sec;
-            if (seconds < 10)
-                sec = "0" + (int)seconds;
-            else
-                sec = ((int)seconds).ToString();
-
-            
-            Console.WriteLine((int)minutes);
-            Console.WriteLine(sec);
-            escape = (int)minutes + ":" + sec;
-
-
-
-            return escape;
-        }
-      
-        /// <summary>
-        /// Sets the waveout device for the audio objects
-        /// </summary>
-        /// <param name="i"></param>
-        public void SetAudioOutput(uint i)
-        {
-            videoSound.SetAudioOutput(i);
-            hintSound.SetAudioOutput(i);
-            this.i = i;
-        }
-
-        /// <summary>
-        /// Plays the sound for pushing hints
-        /// </summary>
-        public void PlayHint() => hintSound.StartPlayback();
 
         /// <summary>
         /// Sets the game video up properly on the monitor
@@ -151,6 +109,25 @@ namespace QuandaryHint
             AlignHintWindows();
             ResetGame();
         }
+        #endregion
+
+        #region Audio handling
+        /// <summary>
+        /// Sets the waveout device for the audio objects
+        /// </summary>
+        /// <param name="i"></param>
+        public void SetAudioOutput(uint i)
+        {
+            videoSound.SetAudioOutput(i);
+            hintSound.SetAudioOutput(i);
+            waveOutIndex = i;
+        }
+
+        /// <summary>
+        /// Plays the sound for pushing hints
+        /// </summary>
+        public void PlayHint() => hintSound.StartPlayback();
+        #endregion
 
         #region Game State Methods
         /// <summary>
@@ -325,6 +302,37 @@ namespace QuandaryHint
 
         #endregion
 
+        #region Misc 
+        /// <summary>
+        /// Returns the current escape time as a string
+        /// </summary>
+        /// <returns></returns>
+        public string GetEscapeTime()
+        {
+            string escape;
+
+            double minutes = (gameVideo.GetPlaybackPosition() - gameOptions.timerOffset) / 60;
+            double seconds = (gameVideo.GetPlaybackPosition() - gameOptions.timerOffset) % 60;
+            string sec;
+
+            //Make sure seconds under 10 are formatted correctly
+            if (seconds < 10)
+                sec = "0" + (int)seconds;
+            else
+                sec = ((int)seconds).ToString();
+
+            escape = (int)minutes + ":" + sec;
+
+
+
+            return escape;
+        }
+
+        /// <summary>
+        /// Writes the excel path, volumes, and audio output device to a text file
+        /// that will be read upon future startups
+        /// </summary>
+        /// <param name="excelPath"></param>
         public void WriteConfigFile(string excelPath)
         {
             StreamWriter sw = new StreamWriter(gameOptions.gameMode + "_config.txt");
@@ -337,17 +345,10 @@ namespace QuandaryHint
             //video volume
             sw.WriteLine(videoSound.volume);
             //Audio output device
-            sw.WriteLine(i);
+            sw.WriteLine(waveOutIndex);
 
             sw.Close();
         }
-
-        
-
-
-
-
-
-
+        #endregion
     }
 }
