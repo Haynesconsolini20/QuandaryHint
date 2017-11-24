@@ -2,6 +2,7 @@
 using Microsoft.Office.Interop.Excel;
 using _Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace QuandaryHint
 {
@@ -39,9 +40,23 @@ namespace QuandaryHint
             //Set the path variables
             this.path = path;
 
-            //Open up the sheet we want
-            wb = excel.Workbooks.Open(path);
-            ws = wb.Worksheets[sheet];
+            if (File.Exists(path))
+            {
+                //Open up the sheet we want
+                wb = excel.Workbooks.Open(path);
+                ws = wb.Worksheets[sheet];
+            }
+
+            else
+            {
+                Console.WriteLine("File does not exist. creating new workbook");
+                wb = excel.Workbooks.Add("");
+                Console.WriteLine("Selecting worksheet 0");
+                ws = wb.ActiveSheet;
+                Console.WriteLine("Time to fill it in and save it");
+                CreateEscapeSpreadsheet();
+            }
+
 
             //Find which part of the sheet we'll be appending to
             gameColumn = column;
@@ -150,6 +165,27 @@ namespace QuandaryHint
                 row++;
 
             FirstEmptyRow = row;
+        }
+
+        /// <summary>
+        /// Creates a new valid spreadsheet to be used with the program
+        /// </summary>
+        private void CreateEscapeSpreadsheet()
+        {
+            //Write in a set of headers for each game mode..
+            //excel sheets start at 1 :(
+            path = @"c:\QuandarySpreadsheet.xlsx";
+            for (int i = 1; i <= 13; i += 6)
+            {
+                WriteCell(1, i, "Date");
+                WriteCell(1, i + 1, "Size");
+                WriteCell(1, i + 2, "TeamSize");
+                WriteCell(1, i + 3, "EscapeT");
+                WriteCell(1, i + 4, "Escaped?");
+            }
+ 
+            Console.WriteLine("Creating file...");
+            wb.SaveAs(path);
         }
         #endregion
     }

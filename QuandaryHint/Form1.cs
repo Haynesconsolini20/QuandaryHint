@@ -40,6 +40,9 @@ namespace QuandaryHint
         Excel excel;
         string excelPath;
 
+        //For cancelling the writing of config files
+        bool writeFile = true;
+
         //RawInput
         RawInputKeyboard rawInputKeyboard;
         int cursorPos = 0;
@@ -139,6 +142,8 @@ namespace QuandaryHint
                 inheritOptions.hintVolume = Int32.Parse(sr.ReadLine());
                 inheritOptions.gameVolume = Int32.Parse(sr.ReadLine());
                 inheritOptions.waveOut = Int32.Parse(sr.ReadLine());
+
+                sr.Close();
                
             }
         }
@@ -150,7 +155,8 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            testGame.WriteConfigFile(excelPath);
+            if(writeFile)
+                testGame.WriteConfigFile(excelPath);
 
         }
 
@@ -442,10 +448,24 @@ namespace QuandaryHint
             label3.Text = testGame.GetEscapeTime();
             Console.WriteLine("get escape time");
 
-            excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, testGame.GetEscapeTime(), true);
-            TeamNameEntry.Text = "blank";
-            TeamSizeEntry.Value = 0;
-            testGame.SetHintText("");
+            try
+            {
+               excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, testGame.GetEscapeTime(), true);
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("No excel file found! Please restart the program.");
+                string path = inheritOptions.gameMode + "_config.txt";
+                File.Delete(path);
+                writeFile = false;
+                this.Close();
+            }
+            finally
+            {
+                TeamNameEntry.Text = "blank";
+                TeamSizeEntry.Value = 0;
+                testGame.SetHintText("");
+            }
             
             Console.WriteLine("appended to doc");
         }

@@ -24,6 +24,7 @@ namespace QuandaryHint
 
         //Index of the desired waveout device
         public uint waveOutIndex;
+
         #endregion
 
         #region Constructors
