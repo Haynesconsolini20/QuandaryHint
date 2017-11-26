@@ -120,7 +120,7 @@ namespace QuandaryHint
             {
                 //Make one with some junk in it
                 StreamWriter sw = new StreamWriter(configPath);
-                sw.WriteLine("null");
+                sw.WriteLine("blankbook");
                 sw.Close();
 
                 //Find an excel file to edit
@@ -170,6 +170,7 @@ namespace QuandaryHint
                     
                     MessageBox.Show("Invalid config file.");
                     File.Delete(configPath);
+                    
                 }
                 finally
                 {

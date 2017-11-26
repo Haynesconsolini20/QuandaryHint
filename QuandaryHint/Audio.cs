@@ -137,6 +137,18 @@ namespace QuandaryHint
         }
 
         /// <summary>
+        /// An overload for more precise position setting in ms
+        /// </summary>
+        /// <param name="ms"></param>
+        public void SetPosition(uint ms)
+        {
+            TStreamTime time = new TStreamTime();
+            time.ms = ms;
+
+            sound.Seek(TTimeFormat.tfMillisecond, ref time, TSeekMethod.smFromBeginning);
+        }
+
+        /// <summary>
         /// Sets audio output
         /// </summary>
         /// <param name="i"></param>
