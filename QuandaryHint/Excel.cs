@@ -10,7 +10,7 @@ namespace QuandaryHint
     {
         #region Variables
         //Path to store the file location
-        string path;
+        public string path;
 
         //The object being wrapped
         public _Application excel = new _Excel.Application();
