@@ -125,9 +125,29 @@ namespace QuandaryHint
 
                 //Find an excel file to edit
                 OpenFileDialog opend = new OpenFileDialog();
-                DialogResult result = opend.ShowDialog(); // Show the dialog.
+                opend.Filter = "Excel files(.xls)(.xlsx)(.xlsm)|*.xls;*.xlsx;*.xlsm";
+                DialogResult result = opend.ShowDialog();// Show the dialog.
+
+                while (result != DialogResult.OK)
+                {
+                    //A second dialog box to elaborate
+                    var choice = MessageBox.Show("Please select a valid excel file.", "Excel file error", MessageBoxButtons.OKCancel);
+
+                    //If they cancel then just create a new spreadsheet
+                    if (choice == DialogResult.Cancel)
+                    {
+                        MessageBox.Show("Creating excel file QuandarySpreadsheet in C:\\");
+                        result = DialogResult.OK;
+                        
+                    }
+                    //If ok, then give them another chance to pick a file
+                    else
+                        result = opend.ShowDialog();
+                }
                 if (result == DialogResult.OK) // Test result.
                     excelPath = opend.FileName;
+
+                
                
             }
             //If there is...
@@ -137,14 +157,24 @@ namespace QuandaryHint
                 StreamReader sr = new StreamReader(configPath);
 
                 //Read in our data
-                excelPath = sr.ReadLine();
-                inheritOptions.hintFontSize = Int32.Parse(sr.ReadLine());
-                inheritOptions.hintVolume = Int32.Parse(sr.ReadLine());
-                inheritOptions.gameVolume = Int32.Parse(sr.ReadLine());
-                inheritOptions.waveOut = Int32.Parse(sr.ReadLine());
-
-                sr.Close();
-               
+                try
+                {
+                    excelPath = sr.ReadLine();
+                    inheritOptions.hintFontSize = Int32.Parse(sr.ReadLine());
+                    inheritOptions.hintVolume = Int32.Parse(sr.ReadLine());
+                    inheritOptions.gameVolume = Int32.Parse(sr.ReadLine());
+                    inheritOptions.waveOut = Int32.Parse(sr.ReadLine());
+                }
+                catch (IOException e)
+                {
+                    
+                    MessageBox.Show("Invalid config file.");
+                    File.Delete(configPath);
+                }
+                finally
+                {
+                    sr.Close();
+                }
             }
         }
 

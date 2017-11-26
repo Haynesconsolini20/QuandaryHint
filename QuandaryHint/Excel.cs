@@ -175,7 +175,15 @@ namespace QuandaryHint
             //Write in a set of headers for each game mode..
             //excel sheets start at 1 :(
             path = @"c:\QuandarySpreadsheet.xlsx";
-            for (int i = 1; i <= 13; i += 6)
+
+            //If there's already a placeholder file, delete it to shield
+            //the user from a overwriting file message
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            for (int i = 2; i <= 14; i += 6)
             {
                 WriteCell(1, i, "Date");
                 WriteCell(1, i + 1, "Size");

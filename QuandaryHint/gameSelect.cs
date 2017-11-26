@@ -68,7 +68,7 @@ namespace QuandaryHint
             gameOptions.videoOffset = 0;
             gameOptions.hintVolume = 5;
             gameOptions.gameVolume = 9;
-            gameOptions.gameColumn = 1;
+            gameOptions.gameColumn = 2;
             this.Close();
         }
 
@@ -91,7 +91,7 @@ namespace QuandaryHint
             gameOptions.videoOffset = 3740;
             gameOptions.hintVolume = 10;
             gameOptions.gameVolume = 10;
-            gameOptions.gameColumn = 7;
+            gameOptions.gameColumn = 8;
             this.Close();
         }
 
@@ -114,7 +114,7 @@ namespace QuandaryHint
             gameOptions.videoOffset = 95;
             gameOptions.hintVolume = 1;
             gameOptions.gameVolume = 5;
-            gameOptions.gameColumn = 13;
+            gameOptions.gameColumn = 14;
             this.Close();
         }
 
