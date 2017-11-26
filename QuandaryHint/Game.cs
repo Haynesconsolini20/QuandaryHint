@@ -136,10 +136,18 @@ namespace QuandaryHint
         /// </summary>
         public void StartGame()
         {
+            gameVideo.SetPosition(0.0, 1.0);
+            previewVideo.SetPosition(0.0, 1.0);
+            videoSound.SetPosition(0, 1);
+
+            gameVideo.ResumePlayback();
+            videoSound.ResumePlayback();
+            previewVideo.ResumePlayback();
+            /*
             gameVideo.StartPlayback();
             videoSound.StartPlayback();
             previewVideo.StartPlayback();
-           
+           */
         }
 
         /// <summary>

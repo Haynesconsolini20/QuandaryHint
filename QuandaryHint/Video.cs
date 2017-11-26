@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QuandaryHint
@@ -11,6 +12,8 @@ namespace QuandaryHint
 
         //The hint window associated with it
         //  private hintWindow hint;
+
+       
 
         //An integer to track if we need the video offset
         private int playCount = 0;
@@ -71,6 +74,7 @@ namespace QuandaryHint
             ResumePlayback();
             await wait;
             PausePlayback();
+            System.Console.WriteLine("Pause playback reached");
 
            
 
