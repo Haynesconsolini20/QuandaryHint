@@ -25,7 +25,8 @@ namespace QuandaryHint
             //Set data-dependent tools
             FontAdjuster.Value = testGame.gameOptions.hintFontSize;
             HintSoundUpDown.Value = testGame.hintSound.volume;
-            VideoSoundUpDown.Value = testGame.videoSound.volume;
+            VideoSoundUpDown.Value = testGame.gameVideo.volume;
+            numericUpDown1.Value = testGame.loopMusic.volume;
             
 
         }
@@ -112,8 +113,8 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void VideoSoundUpDown_ValueChanged(object sender, EventArgs e)
         {
-            
-            testGame.videoSound.SetVolume((int)VideoSoundUpDown.Value);
+
+            testGame.gameVideo.SetVolume((int)VideoSoundUpDown.Value);
             
             
 
@@ -141,10 +142,14 @@ namespace QuandaryHint
         }
 
 
+
+
+
         #endregion
 
-      
-
-        
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            testGame.loopMusic.SetVolume((int)numericUpDown1.Value);
+        }
     }
 }

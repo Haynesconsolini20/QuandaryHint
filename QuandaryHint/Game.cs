@@ -9,6 +9,7 @@ namespace QuandaryHint
         
         public Audio videoSound;
         public Audio hintSound;
+        public Audio loopMusic;
 
         public Video gameVideo;
         public Video previewVideo;
@@ -37,6 +38,7 @@ namespace QuandaryHint
             gameHint = new Hint(false);
             previewHint = new Hint(true);
 
+            loopMusic = new Audio();
             hintSound = new Audio();
             hintSound.SetPath(@"assets\hintSound.wav");
 
@@ -51,6 +53,15 @@ namespace QuandaryHint
 
             gameVideo.DisplayFrame();
             previewVideo.DisplayFrame();
+
+
+            //Debugs for testing without seperate audio
+            
+            videoSound.SetVolume(0);
+            gameVideo.SetMute(false);
+
+           
+            
 
             
         }
@@ -91,12 +102,32 @@ namespace QuandaryHint
            
             //Setup the audio classes
             hintSound.SetVolume(game.hintVolume);
-            videoSound.SetVolume(game.gameVolume);
+
+            System.Console.WriteLine("gameVolume is " + game.gameVolume);
+            gameVideo.SetVolume(game.gameVolume);
+            System.Console.WriteLine("Video volume is " + gameVideo.volume);
+            loopMusic.SetVolume(game.loopVolume);
             videoSound.SetPath(game.audioPath);
 
             //Another function to setup hint classes
             gameHint.CopyGameOptions(game);
             previewHint.CopyGameOptions(game);
+
+            //Set the loop audios
+            if (game.gameMode == "The Locked In Dead")
+            {
+                loopMusic.SetPath(@"assets\deadLoop.mp3");
+            }
+            else if (game.gameMode == "The Runaway Train")
+            {
+                loopMusic.SetPath(@"assets\trainLoop.mp3");
+            }
+            else if (game.gameMode == "The Psych Ward")
+            {
+                loopMusic.SetPath(@"assets\dynalineLoop.mp3");
+            }
+            
+           
         }
 
         /// <summary>
@@ -109,6 +140,7 @@ namespace QuandaryHint
             SetupHintWindows();
             AlignHintWindows();
             ResetGame();
+            loopMusic.PlayLoop();
         }
         #endregion
 
@@ -136,10 +168,13 @@ namespace QuandaryHint
         /// </summary>
         public void StartGame()
         {
-            PauseGame();
-            gameVideo.SetPosition(0.0, 0.75);
-            previewVideo.SetPosition(0.0, 0.75);
-            videoSound.SetPosition(750);
+            
+            gameVideo.SetPosition(0.0, 0.0);
+            previewVideo.SetPosition(0.0, 0.0);
+            //videoSound.SetPosition(750); 
+
+            loopMusic.PausePlayback();
+            gameVideo.SetMute(false);
 
             gameVideo.ResumePlayback();
             videoSound.StartPlayback();
@@ -228,6 +263,8 @@ namespace QuandaryHint
                 gameVideo.SetPath(@"C:\DI_Victory.wmv");
                 previewVideo.SetPath(@"C:\DI_Victory.wmv");
                 videoSound.SetPath(@"assets\DI_Victory.mp3");
+                videoSound.SetVolume(0);
+                gameVideo.SetMute(false);
                 StartGame();
             }
         }
@@ -237,7 +274,7 @@ namespace QuandaryHint
         /// </summary>
         public void ResetGame()
         {
-            PauseGame();
+           // PauseGame();
 
             gameVideo.SetPath(gameOptions.videoPath);
             previewVideo.SetPath(gameOptions.videoPath);
@@ -245,6 +282,7 @@ namespace QuandaryHint
 
             gameVideo.DisplayFrame();
             previewVideo.DisplayFrame();
+            loopMusic.PlayLoop();
         }
         #endregion
 
@@ -317,7 +355,7 @@ namespace QuandaryHint
         /// Returns the current escape time as a string
         /// </summary>
         /// <returns></returns>
-        public string GetEscapeTime()
+        public string GetEscapeTime(bool excel)
         {
             string escape;
 
@@ -331,7 +369,10 @@ namespace QuandaryHint
             else
                 sec = ((int)seconds).ToString();
 
-            escape = (int)minutes + ":" + sec;
+            if (excel)
+                escape = (int)minutes + "." + sec;
+            else
+                escape = (int)minutes + ":" + sec;
 
 
 
@@ -353,9 +394,13 @@ namespace QuandaryHint
             //hint volume
             sw.WriteLine(hintSound.volume);
             //video volume
-            sw.WriteLine(videoSound.volume);
+            sw.WriteLine(gameVideo.volume);
+            //loop volume
+            System.Console.WriteLine("wr video vol of " + gameVideo.volume);
+            sw.WriteLine(loopMusic.volume);
             //Audio output device
             sw.WriteLine(waveOutIndex);
+
 
             sw.Close();
         }

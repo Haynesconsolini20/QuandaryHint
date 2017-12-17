@@ -55,31 +55,31 @@
             // 
             // HintPusher
             // 
-            this.HintPusher.Location = new System.Drawing.Point(169, 15);
-            this.HintPusher.Margin = new System.Windows.Forms.Padding(2);
+            this.HintPusher.Location = new System.Drawing.Point(338, 29);
+            this.HintPusher.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.HintPusher.Name = "HintPusher";
-            this.HintPusher.Size = new System.Drawing.Size(60, 34);
+            this.HintPusher.Size = new System.Drawing.Size(120, 65);
             this.HintPusher.TabIndex = 0;
-            this.HintPusher.Text = "Push Hint";
+            this.HintPusher.Text = "Punch Hint";
             this.HintPusher.UseVisualStyleBackColor = true;
             this.HintPusher.Click += new System.EventHandler(this.HintPusher_Click);
             // 
             // hintEntry
             // 
-            this.hintEntry.Location = new System.Drawing.Point(132, 85);
-            this.hintEntry.Margin = new System.Windows.Forms.Padding(2);
+            this.hintEntry.Location = new System.Drawing.Point(264, 163);
+            this.hintEntry.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hintEntry.Multiline = true;
             this.hintEntry.Name = "hintEntry";
-            this.hintEntry.Size = new System.Drawing.Size(220, 91);
+            this.hintEntry.Size = new System.Drawing.Size(436, 171);
             this.hintEntry.TabIndex = 1;
             this.hintEntry.Click += new System.EventHandler(this.hintEntry_Click);
             // 
             // configButton
             // 
-            this.configButton.Location = new System.Drawing.Point(101, 15);
-            this.configButton.Margin = new System.Windows.Forms.Padding(2);
+            this.configButton.Location = new System.Drawing.Point(202, 29);
+            this.configButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.configButton.Name = "configButton";
-            this.configButton.Size = new System.Drawing.Size(64, 34);
+            this.configButton.Size = new System.Drawing.Size(128, 65);
             this.configButton.TabIndex = 3;
             this.configButton.Text = "Edit Config";
             this.configButton.UseVisualStyleBackColor = true;
@@ -88,10 +88,10 @@
             // audioToggle
             // 
             this.audioToggle.AutoSize = true;
-            this.audioToggle.Location = new System.Drawing.Point(15, 177);
-            this.audioToggle.Margin = new System.Windows.Forms.Padding(2);
+            this.audioToggle.Location = new System.Drawing.Point(30, 340);
+            this.audioToggle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.audioToggle.Name = "audioToggle";
-            this.audioToggle.Size = new System.Drawing.Size(89, 17);
+            this.audioToggle.Size = new System.Drawing.Size(171, 29);
             this.audioToggle.TabIndex = 4;
             this.audioToggle.Text = "Toggle Audio";
             this.audioToggle.UseVisualStyleBackColor = true;
@@ -100,48 +100,48 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 194);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(24, 373);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(327, 13);
+            this.label1.Size = new System.Drawing.Size(651, 25);
             this.label1.TabIndex = 5;
             this.label1.Text = "This can be useful for consecutive hints with a \"walkthrough\" group";
             // 
             // hintCounter
             // 
-            this.hintCounter.Location = new System.Drawing.Point(353, 159);
-            this.hintCounter.Margin = new System.Windows.Forms.Padding(2);
+            this.hintCounter.Location = new System.Drawing.Point(706, 306);
+            this.hintCounter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hintCounter.Name = "hintCounter";
-            this.hintCounter.Size = new System.Drawing.Size(32, 20);
+            this.hintCounter.Size = new System.Drawing.Size(64, 31);
             this.hintCounter.TabIndex = 6;
             this.hintCounter.ValueChanged += new System.EventHandler(this.hintCounter_ValueChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(353, 144);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(706, 277);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.Size = new System.Drawing.Size(132, 25);
             this.label2.TabIndex = 7;
             this.label2.Text = "Hint Counter";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 157);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(24, 302);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.Size = new System.Drawing.Size(137, 25);
             this.label3.TabIndex = 11;
             this.label3.Text = "Escape Time";
             // 
             // StartVideoBtn
             // 
-            this.StartVideoBtn.Location = new System.Drawing.Point(441, 168);
-            this.StartVideoBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.StartVideoBtn.Location = new System.Drawing.Point(882, 323);
+            this.StartVideoBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StartVideoBtn.Name = "StartVideoBtn";
-            this.StartVideoBtn.Size = new System.Drawing.Size(64, 39);
+            this.StartVideoBtn.Size = new System.Drawing.Size(128, 75);
             this.StartVideoBtn.TabIndex = 12;
             this.StartVideoBtn.Text = "Start Video";
             this.StartVideoBtn.UseVisualStyleBackColor = true;
@@ -149,10 +149,10 @@
             // 
             // AlignHintsBtn
             // 
-            this.AlignHintsBtn.Location = new System.Drawing.Point(6, 15);
-            this.AlignHintsBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.AlignHintsBtn.Location = new System.Drawing.Point(12, 29);
+            this.AlignHintsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.AlignHintsBtn.Name = "AlignHintsBtn";
-            this.AlignHintsBtn.Size = new System.Drawing.Size(78, 34);
+            this.AlignHintsBtn.Size = new System.Drawing.Size(156, 65);
             this.AlignHintsBtn.TabIndex = 13;
             this.AlignHintsBtn.Text = "Align hints";
             this.AlignHintsBtn.UseVisualStyleBackColor = true;
@@ -160,10 +160,10 @@
             // 
             // PlayPauseBtn
             // 
-            this.PlayPauseBtn.Location = new System.Drawing.Point(6, 81);
-            this.PlayPauseBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayPauseBtn.Location = new System.Drawing.Point(12, 156);
+            this.PlayPauseBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PlayPauseBtn.Name = "PlayPauseBtn";
-            this.PlayPauseBtn.Size = new System.Drawing.Size(78, 27);
+            this.PlayPauseBtn.Size = new System.Drawing.Size(156, 52);
             this.PlayPauseBtn.TabIndex = 14;
             this.PlayPauseBtn.Text = "Play/Pause";
             this.PlayPauseBtn.UseVisualStyleBackColor = true;
@@ -171,10 +171,10 @@
             // 
             // HintSoundBtn
             // 
-            this.HintSoundBtn.Location = new System.Drawing.Point(309, 15);
-            this.HintSoundBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.HintSoundBtn.Location = new System.Drawing.Point(618, 29);
+            this.HintSoundBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.HintSoundBtn.Name = "HintSoundBtn";
-            this.HintSoundBtn.Size = new System.Drawing.Size(66, 34);
+            this.HintSoundBtn.Size = new System.Drawing.Size(132, 65);
             this.HintSoundBtn.TabIndex = 16;
             this.HintSoundBtn.Text = "boop";
             this.HintSoundBtn.UseVisualStyleBackColor = true;
@@ -182,10 +182,10 @@
             // 
             // EscapeBtn
             // 
-            this.EscapeBtn.Location = new System.Drawing.Point(6, 118);
-            this.EscapeBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.EscapeBtn.Location = new System.Drawing.Point(12, 227);
+            this.EscapeBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.EscapeBtn.Name = "EscapeBtn";
-            this.EscapeBtn.Size = new System.Drawing.Size(78, 37);
+            this.EscapeBtn.Size = new System.Drawing.Size(156, 71);
             this.EscapeBtn.TabIndex = 17;
             this.EscapeBtn.Text = "Escape!";
             this.EscapeBtn.UseVisualStyleBackColor = true;
@@ -193,10 +193,10 @@
             // 
             // easyStartBtn
             // 
-            this.easyStartBtn.Location = new System.Drawing.Point(441, 130);
-            this.easyStartBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.easyStartBtn.Location = new System.Drawing.Point(882, 250);
+            this.easyStartBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.easyStartBtn.Name = "easyStartBtn";
-            this.easyStartBtn.Size = new System.Drawing.Size(64, 34);
+            this.easyStartBtn.Size = new System.Drawing.Size(128, 65);
             this.easyStartBtn.TabIndex = 18;
             this.easyStartBtn.Text = "Initial Setup";
             this.easyStartBtn.UseVisualStyleBackColor = true;
@@ -204,9 +204,10 @@
             // 
             // ResetBtn
             // 
-            this.ResetBtn.Location = new System.Drawing.Point(234, 15);
+            this.ResetBtn.Location = new System.Drawing.Point(468, 29);
+            this.ResetBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.ResetBtn.Name = "ResetBtn";
-            this.ResetBtn.Size = new System.Drawing.Size(70, 34);
+            this.ResetBtn.Size = new System.Drawing.Size(140, 65);
             this.ResetBtn.TabIndex = 19;
             this.ResetBtn.Text = "Reset Game";
             this.ResetBtn.UseVisualStyleBackColor = true;
@@ -217,10 +218,10 @@
             this.CaptureInputCheckBox.AutoSize = true;
             this.CaptureInputCheckBox.Checked = true;
             this.CaptureInputCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CaptureInputCheckBox.Location = new System.Drawing.Point(413, 25);
-            this.CaptureInputCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.CaptureInputCheckBox.Location = new System.Drawing.Point(826, 48);
+            this.CaptureInputCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.CaptureInputCheckBox.Name = "CaptureInputCheckBox";
-            this.CaptureInputCheckBox.Size = new System.Drawing.Size(90, 17);
+            this.CaptureInputCheckBox.Size = new System.Drawing.Size(173, 29);
             this.CaptureInputCheckBox.TabIndex = 20;
             this.CaptureInputCheckBox.Text = "Capture Input";
             this.CaptureInputCheckBox.UseVisualStyleBackColor = true;
@@ -228,9 +229,10 @@
             // 
             // TeamNameEntry
             // 
-            this.TeamNameEntry.Location = new System.Drawing.Point(413, 65);
+            this.TeamNameEntry.Location = new System.Drawing.Point(826, 125);
+            this.TeamNameEntry.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.TeamNameEntry.Name = "TeamNameEntry";
-            this.TeamNameEntry.Size = new System.Drawing.Size(100, 20);
+            this.TeamNameEntry.Size = new System.Drawing.Size(196, 31);
             this.TeamNameEntry.TabIndex = 21;
             this.TeamNameEntry.Text = "blank";
             this.TeamNameEntry.Click += new System.EventHandler(this.TeamNameEntry_Click);
@@ -238,34 +240,37 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(410, 49);
+            this.label4.Location = new System.Drawing.Point(820, 94);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.Size = new System.Drawing.Size(128, 25);
             this.label4.TabIndex = 22;
             this.label4.Text = "Team Name";
             // 
             // TeamSizeEntry
             // 
-            this.TeamSizeEntry.Location = new System.Drawing.Point(479, 86);
+            this.TeamSizeEntry.Location = new System.Drawing.Point(958, 165);
+            this.TeamSizeEntry.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.TeamSizeEntry.Name = "TeamSizeEntry";
-            this.TeamSizeEntry.Size = new System.Drawing.Size(34, 20);
+            this.TeamSizeEntry.Size = new System.Drawing.Size(68, 31);
             this.TeamSizeEntry.TabIndex = 23;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(418, 85);
+            this.label5.Location = new System.Drawing.Point(836, 163);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.Size = new System.Drawing.Size(111, 25);
             this.label5.TabIndex = 24;
             this.label5.Text = "Team size";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(516, 212);
+            this.ClientSize = new System.Drawing.Size(1032, 408);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.TeamSizeEntry);
             this.Controls.Add(this.label4);
@@ -288,7 +293,7 @@
             this.Controls.Add(this.HintPusher);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Control Window";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

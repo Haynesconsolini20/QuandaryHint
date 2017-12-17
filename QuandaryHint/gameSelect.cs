@@ -20,6 +20,7 @@ namespace QuandaryHint
         public double videoOffset;
         public int gameVolume;
         public int hintVolume;
+        public int loopVolume;
         public int gameColumn;
         public int hintFontSize;
         public int waveOut;
@@ -44,6 +45,7 @@ namespace QuandaryHint
         {
             InitializeComponent();
             gameOptions.waveOut = 10;
+            gameOptions.loopVolume = 10;
         }
         #endregion
 

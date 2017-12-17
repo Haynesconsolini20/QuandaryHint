@@ -13,6 +13,8 @@ namespace QuandaryHint
         //The hint window associated with it
         //  private hintWindow hint;
 
+        public int volume = 10;
+
        
 
         //An integer to track if we need the video offset
@@ -49,6 +51,14 @@ namespace QuandaryHint
             video.Show();
         }
 
+        /// <summary>
+        /// Mute/unmute the video
+        /// </summary>
+        /// <param name="mute"></param>
+        public void SetMute(bool mute)
+        {
+            video.axWindowsMediaPlayer1.settings.mute = mute;
+        }
         /// <summary>
         /// Set the filepath for the video
         /// </summary>
@@ -159,6 +169,19 @@ namespace QuandaryHint
             double sec = ComputeSeconds(minutes, seconds);
 
             video.axWindowsMediaPlayer1.Ctlcontrols.currentPosition -= sec;
+        }
+
+        /// <summary>
+        /// Sets the volume for the player
+        /// </summary>
+        /// <param name="volume"></param>
+        public void SetVolume(int volume)
+        {
+            if (volume <= 10)
+                volume *= 10;
+
+            video.axWindowsMediaPlayer1.settings.volume = volume;
+            this.volume = volume / 10;
         }
 
         /// <summary>

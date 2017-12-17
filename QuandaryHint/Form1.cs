@@ -163,6 +163,8 @@ namespace QuandaryHint
                     inheritOptions.hintFontSize = Int32.Parse(sr.ReadLine());
                     inheritOptions.hintVolume = Int32.Parse(sr.ReadLine());
                     inheritOptions.gameVolume = Int32.Parse(sr.ReadLine());
+                    Console.WriteLine("Read game vol of " + inheritOptions.gameVolume);
+                    inheritOptions.loopVolume = Int32.Parse(sr.ReadLine());
                     inheritOptions.waveOut = Int32.Parse(sr.ReadLine());
                 }
                 catch (IOException e)
@@ -442,7 +444,7 @@ namespace QuandaryHint
         private void PlayPauseBtn_Click(object sender, EventArgs e)
         {
             testGame.TogglePaused();
-            label3.Text = testGame.GetEscapeTime();
+            label3.Text = testGame.GetEscapeTime(false);
         }
 
         /// <summary>
@@ -476,12 +478,12 @@ namespace QuandaryHint
            
             testGame.Escape();
             Console.WriteLine("Escape method");
-            label3.Text = testGame.GetEscapeTime();
+            label3.Text = testGame.GetEscapeTime(false);
             Console.WriteLine("get escape time");
 
             try
             {
-               excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, testGame.GetEscapeTime(), true);
+               excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, testGame.GetEscapeTime(true), true);
             }
             catch (NullReferenceException ex)
             {
@@ -525,6 +527,7 @@ namespace QuandaryHint
             TeamSizeEntry.Value = 0;
             label3.Text = "Escape Time";
             testGame.SetHintText("");
+            welcomeTimer.Stop();
 
             Console.WriteLine("appended to doc");
         }

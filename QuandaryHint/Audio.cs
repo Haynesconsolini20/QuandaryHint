@@ -21,6 +21,7 @@ namespace QuandaryHint
         public Audio()
         {
             sound = new ZPlay();
+           
         }
 
         /// <summary>
@@ -31,6 +32,7 @@ namespace QuandaryHint
         public Audio(string path, int volume)
         {
             sound = new ZPlay();
+            
             SetPath(path);
             SetVolume(volume);
         }
@@ -48,6 +50,19 @@ namespace QuandaryHint
         #endregion
 
         #region Public Methods
+
+        public void PlayLoop()
+        {
+            TStreamTime start = new TStreamTime();
+            start.sec = 1;
+            TStreamTime end = new TStreamTime();
+            end.sec = 5;
+            TStreamInfo info = new TStreamInfo();
+            sound.GetStreamInfo(ref info);
+
+            sound.PlayLoop(TTimeFormat.tfSecond, ref start, TTimeFormat.tfSecond, ref info.Length,
+                           1000, false);
+        }
         /// <summary>
         /// Set the filepath for the sound player
         /// </summary>
