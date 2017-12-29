@@ -75,8 +75,8 @@ namespace QuandaryHint
             ReadConfigFile(ref inheritOptions);
 
             //Open excel on a seperate thread to speed things up
-            bwExcel.DoWork += bwExcel_DoWork;
-            bwExcel.RunWorkerAsync();
+            //  bwExcel.DoWork += bwExcel_DoWork;
+            //  bwExcel.RunWorkerAsync();
 
             //Startup our main class
             testGame = new Game(inheritOptions);
@@ -483,7 +483,7 @@ namespace QuandaryHint
 
             try
             {
-               excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, testGame.GetEscapeTime(true), true);
+                //excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, testGame.GetEscapeTime(true), true);
             }
             catch (NullReferenceException ex)
             {
@@ -522,7 +522,7 @@ namespace QuandaryHint
         {
             testGame.ResetGame();
             if (TeamSizeEntry.Value > 0)
-                excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, "0", false);
+              //  excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, "0", false);
             TeamNameEntry.Text = "blank";
             TeamSizeEntry.Value = 0;
             label3.Text = "Escape Time";
