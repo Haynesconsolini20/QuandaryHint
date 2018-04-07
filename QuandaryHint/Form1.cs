@@ -44,9 +44,9 @@ namespace QuandaryHint
         bool writeFile = true;
 
         //RawInput
-        //RawInputKeyboard rawInputKeyboard;
+        RawInputKeyboard rawInputKeyboard;
         int cursorPos = 0;
-       // RawInput rawInput;
+        RawInput rawInput;
         public bool captureOnlyInForeground = false;
         string selectedSource = "void";
         bool TeamEntryFocused = false;
