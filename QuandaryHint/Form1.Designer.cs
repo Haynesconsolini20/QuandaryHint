@@ -33,7 +33,6 @@
             this.hintEntry = new System.Windows.Forms.TextBox();
             this.configButton = new System.Windows.Forms.Button();
             this.audioToggle = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.hintCounter = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,7 +55,7 @@
             // HintPusher
             // 
             this.HintPusher.Location = new System.Drawing.Point(338, 29);
-            this.HintPusher.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.HintPusher.Margin = new System.Windows.Forms.Padding(4);
             this.HintPusher.Name = "HintPusher";
             this.HintPusher.Size = new System.Drawing.Size(120, 65);
             this.HintPusher.TabIndex = 0;
@@ -66,18 +65,20 @@
             // 
             // hintEntry
             // 
-            this.hintEntry.Location = new System.Drawing.Point(264, 163);
-            this.hintEntry.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hintEntry.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hintEntry.Location = new System.Drawing.Point(202, 131);
+            this.hintEntry.Margin = new System.Windows.Forms.Padding(4);
             this.hintEntry.Multiline = true;
             this.hintEntry.Name = "hintEntry";
-            this.hintEntry.Size = new System.Drawing.Size(436, 171);
+            this.hintEntry.Size = new System.Drawing.Size(496, 453);
             this.hintEntry.TabIndex = 1;
             this.hintEntry.Click += new System.EventHandler(this.hintEntry_Click);
+            this.hintEntry.TextChanged += new System.EventHandler(this.hintEntry_TextChanged);
             // 
             // configButton
             // 
             this.configButton.Location = new System.Drawing.Point(202, 29);
-            this.configButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.configButton.Margin = new System.Windows.Forms.Padding(4);
             this.configButton.Name = "configButton";
             this.configButton.Size = new System.Drawing.Size(128, 65);
             this.configButton.TabIndex = 3;
@@ -88,8 +89,8 @@
             // audioToggle
             // 
             this.audioToggle.AutoSize = true;
-            this.audioToggle.Location = new System.Drawing.Point(30, 340);
-            this.audioToggle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.audioToggle.Location = new System.Drawing.Point(12, 331);
+            this.audioToggle.Margin = new System.Windows.Forms.Padding(4);
             this.audioToggle.Name = "audioToggle";
             this.audioToggle.Size = new System.Drawing.Size(171, 29);
             this.audioToggle.TabIndex = 4;
@@ -97,20 +98,10 @@
             this.audioToggle.UseVisualStyleBackColor = true;
             this.audioToggle.CheckStateChanged += new System.EventHandler(this.audioToggle_CheckStateChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 373);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(651, 25);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "This can be useful for consecutive hints with a \"walkthrough\" group";
-            // 
             // hintCounter
             // 
             this.hintCounter.Location = new System.Drawing.Point(706, 306);
-            this.hintCounter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hintCounter.Margin = new System.Windows.Forms.Padding(4);
             this.hintCounter.Name = "hintCounter";
             this.hintCounter.Size = new System.Drawing.Size(64, 31);
             this.hintCounter.TabIndex = 6;
@@ -139,7 +130,7 @@
             // StartVideoBtn
             // 
             this.StartVideoBtn.Location = new System.Drawing.Point(882, 323);
-            this.StartVideoBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartVideoBtn.Margin = new System.Windows.Forms.Padding(4);
             this.StartVideoBtn.Name = "StartVideoBtn";
             this.StartVideoBtn.Size = new System.Drawing.Size(128, 75);
             this.StartVideoBtn.TabIndex = 12;
@@ -150,7 +141,7 @@
             // AlignHintsBtn
             // 
             this.AlignHintsBtn.Location = new System.Drawing.Point(12, 29);
-            this.AlignHintsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AlignHintsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.AlignHintsBtn.Name = "AlignHintsBtn";
             this.AlignHintsBtn.Size = new System.Drawing.Size(156, 65);
             this.AlignHintsBtn.TabIndex = 13;
@@ -161,7 +152,7 @@
             // PlayPauseBtn
             // 
             this.PlayPauseBtn.Location = new System.Drawing.Point(12, 156);
-            this.PlayPauseBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PlayPauseBtn.Margin = new System.Windows.Forms.Padding(4);
             this.PlayPauseBtn.Name = "PlayPauseBtn";
             this.PlayPauseBtn.Size = new System.Drawing.Size(156, 52);
             this.PlayPauseBtn.TabIndex = 14;
@@ -172,7 +163,7 @@
             // HintSoundBtn
             // 
             this.HintSoundBtn.Location = new System.Drawing.Point(618, 29);
-            this.HintSoundBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.HintSoundBtn.Margin = new System.Windows.Forms.Padding(4);
             this.HintSoundBtn.Name = "HintSoundBtn";
             this.HintSoundBtn.Size = new System.Drawing.Size(132, 65);
             this.HintSoundBtn.TabIndex = 16;
@@ -183,7 +174,7 @@
             // EscapeBtn
             // 
             this.EscapeBtn.Location = new System.Drawing.Point(12, 227);
-            this.EscapeBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.EscapeBtn.Margin = new System.Windows.Forms.Padding(4);
             this.EscapeBtn.Name = "EscapeBtn";
             this.EscapeBtn.Size = new System.Drawing.Size(156, 71);
             this.EscapeBtn.TabIndex = 17;
@@ -194,7 +185,7 @@
             // easyStartBtn
             // 
             this.easyStartBtn.Location = new System.Drawing.Point(882, 250);
-            this.easyStartBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.easyStartBtn.Margin = new System.Windows.Forms.Padding(4);
             this.easyStartBtn.Name = "easyStartBtn";
             this.easyStartBtn.Size = new System.Drawing.Size(128, 65);
             this.easyStartBtn.TabIndex = 18;
@@ -205,7 +196,7 @@
             // ResetBtn
             // 
             this.ResetBtn.Location = new System.Drawing.Point(468, 29);
-            this.ResetBtn.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ResetBtn.Margin = new System.Windows.Forms.Padding(6);
             this.ResetBtn.Name = "ResetBtn";
             this.ResetBtn.Size = new System.Drawing.Size(140, 65);
             this.ResetBtn.TabIndex = 19;
@@ -219,7 +210,7 @@
             this.CaptureInputCheckBox.Checked = true;
             this.CaptureInputCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CaptureInputCheckBox.Location = new System.Drawing.Point(826, 48);
-            this.CaptureInputCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CaptureInputCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CaptureInputCheckBox.Name = "CaptureInputCheckBox";
             this.CaptureInputCheckBox.Size = new System.Drawing.Size(173, 29);
             this.CaptureInputCheckBox.TabIndex = 20;
@@ -230,7 +221,7 @@
             // TeamNameEntry
             // 
             this.TeamNameEntry.Location = new System.Drawing.Point(826, 125);
-            this.TeamNameEntry.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.TeamNameEntry.Margin = new System.Windows.Forms.Padding(6);
             this.TeamNameEntry.Name = "TeamNameEntry";
             this.TeamNameEntry.Size = new System.Drawing.Size(196, 31);
             this.TeamNameEntry.TabIndex = 21;
@@ -250,7 +241,7 @@
             // TeamSizeEntry
             // 
             this.TeamSizeEntry.Location = new System.Drawing.Point(958, 165);
-            this.TeamSizeEntry.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.TeamSizeEntry.Margin = new System.Windows.Forms.Padding(6);
             this.TeamSizeEntry.Name = "TeamSizeEntry";
             this.TeamSizeEntry.Size = new System.Drawing.Size(68, 31);
             this.TeamSizeEntry.TabIndex = 23;
@@ -270,7 +261,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1032, 408);
+            this.ClientSize = new System.Drawing.Size(1032, 597);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.TeamSizeEntry);
             this.Controls.Add(this.label4);
@@ -286,14 +277,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.hintCounter);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.audioToggle);
             this.Controls.Add(this.configButton);
             this.Controls.Add(this.hintEntry);
             this.Controls.Add(this.HintPusher);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Control Window";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -310,7 +300,6 @@
         private System.Windows.Forms.TextBox hintEntry;
         private System.Windows.Forms.Button configButton;
         private System.Windows.Forms.CheckBox audioToggle;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown hintCounter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

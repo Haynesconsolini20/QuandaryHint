@@ -578,5 +578,10 @@ namespace QuandaryHint
 
 
         #endregion
+
+        private void hintEntry_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
