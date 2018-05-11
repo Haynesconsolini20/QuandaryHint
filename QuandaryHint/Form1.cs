@@ -55,7 +55,7 @@ namespace QuandaryHint
         public Game testGame;
 
         //background worker to open excel without ruining literally everything
-        BackgroundWorker bwExcel = new BackgroundWorker();
+        //BackgroundWorker bwExcel = new BackgroundWorker();
 
         //Timer for introducing to welcome message automatically
         Timer welcomeTimer = new Timer();
@@ -72,7 +72,7 @@ namespace QuandaryHint
             
             //Get our game options, then override them if there's a config file
             ParseGameOptions(gameSel.gameOptions);
-            ReadConfigFile(ref inheritOptions);
+            //ReadConfigFile(ref inheritOptions);
 
             //Open excel on a seperate thread to speed things up
             //  bwExcel.DoWork += bwExcel_DoWork;
@@ -188,8 +188,8 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(writeFile)
-                testGame.WriteConfigFile(excelPath);
+            //if(writeFile)
+              //  testGame.WriteConfigFile(excelPath);
 
         }
 
@@ -378,10 +378,10 @@ namespace QuandaryHint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bwExcel_DoWork(object sender, DoWorkEventArgs e)
+       /* private void bwExcel_DoWork(object sender, DoWorkEventArgs e)
         {
             excel = new Excel(excelPath, 1, inheritOptions.gameColumn);
-        }
+        }*/
 
         #endregion
 
