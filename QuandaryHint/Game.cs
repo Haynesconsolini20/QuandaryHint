@@ -303,7 +303,7 @@ namespace QuandaryHint
         /// </summary>
         public void DecoderMessage()
         {
-            SetHintText("Decoding Hint...\n\n");
+            SetHintText("Incoming Communication...\n\n");
         }
 
         /// <summary>
