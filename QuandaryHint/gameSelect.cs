@@ -104,7 +104,7 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void psychWard_Click(object sender, EventArgs e)
         {
-            gameOptions.gameMode = "The Psych Ward";
+            gameOptions.gameMode = "The Dynaline Incident";
             gameOptions.welcomeMessage = "Welcome to the Dynaline Incident";
             gameOptions.hintFontSize = 22;
             gameOptions.hintFont = new Font("Ailerons", gameOptions.hintFontSize);

@@ -122,7 +122,7 @@ namespace QuandaryHint
             {
                 loopMusic.SetPath(@"assets\trainLoop.mp3");
             }
-            else if (game.gameMode == "The Psych Ward")
+            else if (game.gameMode == "The Dynaline Incident")
             {
                 loopMusic.SetPath(@"assets\dynalineLoop.mp3");
             }
@@ -258,7 +258,7 @@ namespace QuandaryHint
         public void Escape()
         {
             TogglePaused();
-            if (gameOptions.gameMode == "The Psych Ward")
+            if (gameOptions.gameMode == "The Dynaline Incident")
             {
                 gameVideo.SetPath(@"C:\DI_Victory.wmv");
                 previewVideo.SetPath(@"C:\DI_Victory.wmv");
