@@ -44,9 +44,9 @@ namespace QuandaryHint
         bool writeFile = true;
 
         //RawInput
-        RawInputKeyboard rawInputKeyboard;
+        //RawInputKeyboard rawInputKeyboard;
         int cursorPos = 0;
-        RawInput rawInput;
+       // RawInput rawInput;
         public bool captureOnlyInForeground = false;
         string selectedSource = "void";
         bool TeamEntryFocused = false;
@@ -93,11 +93,11 @@ namespace QuandaryHint
             
 
             #region RawInput setup DO NOT TOUCH
-            rawInputKeyboard = new RawInputKeyboard();
-            rawInput = new RawInput(Handle, captureOnlyInForeground);
-            rawInput.AddMessageFilter();
+           // rawInputKeyboard = new RawInputKeyboard();
+           //// rawInput = new RawInput(Handle, captureOnlyInForeground);
+            //rawInput.AddMessageFilter();
             hintEntry.Text = "";
-            rawInput.KeyPressed += OnKeyPressed;
+            //rawInput.KeyPressed += OnKeyPressed;
             #endregion
         }
 
