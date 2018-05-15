@@ -37,7 +37,7 @@ namespace QuandaryHint
         private int hintCount = 0;
 
         //Spreadsheet
-        Excel excel;
+        //Excel excel;
         string excelPath;
 
         //For cancelling the writing of config files

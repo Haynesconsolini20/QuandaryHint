@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using Microsoft.Office.Interop.Excel;
 using _Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
@@ -198,3 +199,4 @@ namespace QuandaryHint
         #endregion
     }
 }
+*/
