@@ -1,4 +1,12 @@
 ﻿/*
+ * 
+ * 
+ * 
+ * PLEASE READ:
+ * This file is currently in the process of being excluded from the build and project. It is something I would like
+ * to explore further, but I think it would be better suited for the Electron rewrite. I will leave the code here as
+ * reference to how to write to the excel sheet formatting wise.
+ * 
 using System;
 using Microsoft.Office.Interop.Excel;
 using _Excel = Microsoft.Office.Interop.Excel;
