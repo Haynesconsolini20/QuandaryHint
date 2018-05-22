@@ -169,7 +169,7 @@ namespace QuandaryHint
                 }
                 catch (IOException e)
                 {
-                    
+                    System.Console.WriteLine(e);
                     MessageBox.Show("Invalid config file.");
                     File.Delete(configPath);
                     
@@ -487,6 +487,7 @@ namespace QuandaryHint
             }
             catch (NullReferenceException ex)
             {
+                System.Console.WriteLine(ex);
                 MessageBox.Show("No excel file found! Please restart the program.");
                 string path = inheritOptions.gameMode + "_config.txt";
                 File.Delete(path);
