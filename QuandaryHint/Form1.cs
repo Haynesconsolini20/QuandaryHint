@@ -137,7 +137,6 @@ namespace QuandaryHint
                     System.Console.WriteLine(e);
                     MessageBox.Show("Invalid config file.");
                     File.Delete(configPath);
-                    
                 }
                 finally
                 {
@@ -206,7 +205,7 @@ namespace QuandaryHint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnKeyPressed(object sender, RawInputEventArg e)
+       /* private void OnKeyPressed(object sender, RawInputEventArg e)
         {
             rawInputKeyboard.ProcessInput(e);
             if (selectedSource == "void" || selectedSource == rawInputKeyboard.source)
@@ -220,13 +219,13 @@ namespace QuandaryHint
                 }
             }
 
-        }
+        }*/
 
         /// <summary>
         /// Turns rawinput into meaningful text entry
         /// </summary>
         /// <param name="output"></param>
-        void HandleInput(string output, TextBox hintEntry)
+       /* void HandleInput(string output, TextBox hintEntry)
         {
 
 
@@ -297,7 +296,7 @@ namespace QuandaryHint
                     testGame.DecoderMessage();
             }
 
-        }
+        }*/
 
 
         #endregion
@@ -503,13 +502,13 @@ namespace QuandaryHint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CaptureInputCheckBox_CheckedChanged(object sender, EventArgs e)
+        /*private void CaptureInputCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (captureOnlyInForeground)
                 captureOnlyInForeground = false;
             else
                 captureOnlyInForeground = true;
-        }
+        }*/
 
         
 
@@ -524,23 +523,23 @@ namespace QuandaryHint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TeamNameEntry_Click(object sender, EventArgs e)
+        /*private void TeamNameEntry_Click(object sender, EventArgs e)
         {
             TeamEntryFocused = true;
             if (TeamNameEntry.Text == "blank")
                 TeamNameEntry.Text = "";
 
-        }
+        }*/
 
         /// <summary>
         /// Brings the RawInput events to the hint entry text box
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void hintEntry_Click(object sender, EventArgs e)
+        /*private void hintEntry_Click(object sender, EventArgs e)
         {
             TeamEntryFocused = false;
-        }
+        }*/
 
 
         #endregion

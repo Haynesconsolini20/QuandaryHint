@@ -72,7 +72,7 @@
             this.hintEntry.Name = "hintEntry";
             this.hintEntry.Size = new System.Drawing.Size(496, 453);
             this.hintEntry.TabIndex = 1;
-            this.hintEntry.Click += new System.EventHandler(this.hintEntry_Click);
+            //this.hintEntry.Click += new System.EventHandler(this.hintEntry_Click);
             this.hintEntry.TextChanged += new System.EventHandler(this.hintEntry_TextChanged);
             // 
             // configButton
@@ -216,7 +216,7 @@
             this.CaptureInputCheckBox.TabIndex = 20;
             this.CaptureInputCheckBox.Text = "Capture Input";
             this.CaptureInputCheckBox.UseVisualStyleBackColor = true;
-            this.CaptureInputCheckBox.CheckedChanged += new System.EventHandler(this.CaptureInputCheckBox_CheckedChanged);
+            //this.CaptureInputCheckBox.CheckedChanged += new System.EventHandler(this.CaptureInputCheckBox_CheckedChanged);
             // 
             // TeamNameEntry
             // 
@@ -226,7 +226,7 @@
             this.TeamNameEntry.Size = new System.Drawing.Size(196, 31);
             this.TeamNameEntry.TabIndex = 21;
             this.TeamNameEntry.Text = "blank";
-            this.TeamNameEntry.Click += new System.EventHandler(this.TeamNameEntry_Click);
+           // this.TeamNameEntry.Click += new System.EventHandler(this.TeamNameEntry_Click);
             // 
             // label4
             // 
