@@ -548,5 +548,10 @@ namespace QuandaryHint
         {
 
         }
+
+        private void TeamNameEntry_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
