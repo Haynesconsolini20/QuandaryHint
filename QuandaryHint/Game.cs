@@ -384,11 +384,9 @@ namespace QuandaryHint
         /// that will be read upon future startups
         /// </summary>
         /// <param name="excelPath"></param>
-        public void WriteConfigFile(string excelPath)
+        public void WriteConfigFile()
         {
             StreamWriter sw = new StreamWriter(gameOptions.gameMode + "_config.txt");
-            //excel path
-            sw.WriteLine(excelPath);
             //font size
             sw.WriteLine(gameHint.hintWindowFont);
             //hint volume

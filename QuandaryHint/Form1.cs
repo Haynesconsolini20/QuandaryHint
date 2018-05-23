@@ -125,7 +125,6 @@ namespace QuandaryHint
                 //Read in our data
                 try
                 {
-                    excelPath = sr.ReadLine();
                     inheritOptions.hintFontSize = Int32.Parse(sr.ReadLine());
                     inheritOptions.hintVolume = Int32.Parse(sr.ReadLine());
                     inheritOptions.gameVolume = Int32.Parse(sr.ReadLine());
@@ -154,8 +153,8 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //if(writeFile)
-              //  testGame.WriteConfigFile(excelPath);
+           if(writeFile)
+                testGame.WriteConfigFile();
 
         }
 
