@@ -37,25 +37,20 @@ namespace QuandaryHint
         private int hintCount = 0;
 
         //Spreadsheet
-        //Excel excel;
-        string excelPath;
 
         //For cancelling the writing of config files
         bool writeFile = true;
 
-        //RawInput
-        RawInputKeyboard rawInputKeyboard;
+        //RawInput TODO: Remove/Archive
+        /*RawInputKeyboard rawInputKeyboard;
         int cursorPos = 0;
         RawInput rawInput;
         public bool captureOnlyInForeground = false;
         string selectedSource = "void";
-        bool TeamEntryFocused = false;
+        bool TeamEntryFocused = false; */
 
         //Game object where the magic happens
         public Game testGame;
-
-        //background worker to open excel without ruining literally everything
-        //BackgroundWorker bwExcel = new BackgroundWorker();
 
         //Timer for introducing to welcome message automatically
         Timer welcomeTimer = new Timer();
@@ -73,10 +68,6 @@ namespace QuandaryHint
             //Get our game options, then override them if there's a config file
             ParseGameOptions(gameSel.gameOptions);
             //ReadConfigFile(ref inheritOptions);
-
-            //Open excel on a seperate thread to speed things up
-            //  bwExcel.DoWork += bwExcel_DoWork;
-            //  bwExcel.RunWorkerAsync();
 
             //Startup our main class
             testGame = new Game(inheritOptions);
@@ -122,31 +113,6 @@ namespace QuandaryHint
                 StreamWriter sw = new StreamWriter(configPath);
                 sw.WriteLine("blankbook");
                 sw.Close();
-
-                //Find an excel file to edit
-                OpenFileDialog opend = new OpenFileDialog();
-                opend.Filter = "Excel files(.xls)(.xlsx)(.xlsm)|*.xls;*.xlsx;*.xlsm";
-                DialogResult result = opend.ShowDialog();// Show the dialog.
-
-                while (result != DialogResult.OK)
-                {
-                    //A second dialog box to elaborate
-                    var choice = MessageBox.Show("Please select a valid excel file.", "Excel file error", MessageBoxButtons.OKCancel);
-
-                    //If they cancel then just create a new spreadsheet
-                    if (choice == DialogResult.Cancel)
-                    {
-                        MessageBox.Show("Creating excel file QuandarySpreadsheet in C:\\");
-                        result = DialogResult.OK;
-                        
-                    }
-                    //If ok, then give them another chance to pick a file
-                    else
-                        result = opend.ShowDialog();
-                }
-                if (result == DialogResult.OK) // Test result.
-                    excelPath = opend.FileName;
-
                 
                
             }
