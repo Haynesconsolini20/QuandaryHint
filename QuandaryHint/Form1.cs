@@ -594,6 +594,7 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void hintEntry_KeyDown(object sender, KeyEventArgs e)
         {
+            testGame.DecoderMessage();
             //ENTER: Push a hint, prevent normal event from occurring
             if (e.KeyValue == 13)
             {
