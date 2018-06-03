@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Newtonsoft.Json;
 
 namespace QuandaryHint
 {
@@ -386,7 +387,7 @@ namespace QuandaryHint
         /// <param name="excelPath"></param>
         public void WriteConfigFile()
         {
-            StreamWriter sw = new StreamWriter(gameOptions.gameMode + "_config.txt");
+            /*StreamWriter sw = new StreamWriter(gameOptions.gameMode + "_config.txt");
             //font size
             sw.WriteLine(gameHint.hintWindowFont);
             //hint volume
@@ -400,6 +401,14 @@ namespace QuandaryHint
             sw.WriteLine(waveOutIndex);
 
 
+            sw.Close();*/
+            gameOptions.hintFontSize = gameHint.hintWindowFont;
+            gameOptions.hintVolume = hintSound.volume;
+            gameOptions.gameVolume = gameVideo.volume;
+            gameOptions.loopVolume = loopMusic.volume;
+            string json = JsonConvert.SerializeObject(gameOptions);
+            StreamWriter sw = new StreamWriter(gameOptions.gameMode + ".json");
+            sw.WriteLine(json);
             sw.Close();
         }
         #endregion

@@ -4,6 +4,7 @@ using RawInput_dll;
 using System.IO;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
 
 
 
@@ -80,7 +81,7 @@ namespace QuandaryHint
 
             //Get our game options, then override them if there's a config file
             ParseGameOptions(gameSel.gameOptions);
-            //ReadConfigFile(ref inheritOptions);
+            ReadConfigFile(ref inheritOptions);
 
             //Startup our main class
             testGame = new Game(inheritOptions);
@@ -129,7 +130,7 @@ namespace QuandaryHint
         /// <param name="inheritOptions"></param>
         private void ReadConfigFile(ref GameOptions inheritOptions)
         {
-            string configPath = inheritOptions.gameMode + "_config.txt";
+            string configPath = inheritOptions.gameMode + ".json";
 
             //If there isn't a file
             if (!File.Exists(configPath))
@@ -138,7 +139,7 @@ namespace QuandaryHint
                 StreamWriter sw = new StreamWriter(configPath);
                 sw.WriteLine("blankbook");
                 sw.Close();
-                
+                Console.WriteLine("No config found");
                
             }
             //If there is...
@@ -150,12 +151,9 @@ namespace QuandaryHint
                 //Read in our data
                 try
                 {
-                    inheritOptions.hintFontSize = Int32.Parse(sr.ReadLine());
-                    inheritOptions.hintVolume = Int32.Parse(sr.ReadLine());
-                    inheritOptions.gameVolume = Int32.Parse(sr.ReadLine());
-                    Console.WriteLine("Read game vol of " + inheritOptions.gameVolume);
-                    inheritOptions.loopVolume = Int32.Parse(sr.ReadLine());
-                    inheritOptions.waveOut = Int32.Parse(sr.ReadLine());
+                    string json = sr.ReadLine();
+                    inheritOptions = JsonConvert.DeserializeObject<GameOptions>(json);
+                    Console.WriteLine("hint volume is " + inheritOptions.hintVolume);
                 }
                 catch (IOException e)
                 {
