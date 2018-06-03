@@ -596,7 +596,10 @@ namespace QuandaryHint
             //ENTER: Push a hint, prevent normal event from occurring
             if (e.KeyValue == 13)
             {
-                pushHint(true);
+                if (e.Shift)
+                    pushHint(false);
+                else
+                    pushHint(true);
                 e.SuppressKeyPress = true;
             }
             if (e.KeyValue == 82 && e.Control) //Remove hint from entry and screen
@@ -605,6 +608,7 @@ namespace QuandaryHint
                 pushHint(false);
                 e.SuppressKeyPress = true;
             }
+            
         }
 
         protected override void WndProc(ref Message m)
