@@ -64,7 +64,9 @@ namespace QuandaryHint
             //Start the form
             InitializeComponent();
 
-            
+            //Let's us use form wide keyboard shortcuts
+            this.KeyPreview = true;
+
             //Get our game options, then override them if there's a config file
             ParseGameOptions(gameSel.gameOptions);
             //ReadConfigFile(ref inheritOptions);
@@ -554,6 +556,21 @@ namespace QuandaryHint
 
         }
 
+        /// <summary>
+        /// Handles form wide keyboard shortcuts
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+           if (e.KeyValue == 33 || e.KeyValue == 34)
+           {
+                testGame.StartGame();
+                welcomeTimer.Start();
+                e.SuppressKeyPress = true;
+           }
+        }
         /// <summary>
         /// Handles keyboard shortcuts for the hintEntry textbox
         /// </summary>
