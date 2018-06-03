@@ -601,6 +601,12 @@ namespace QuandaryHint
                 pushHint(true);
                 e.SuppressKeyPress = true;
             }
+            if (e.KeyValue == 82 && e.Control) //Remove hint from entry and screen
+            {
+                hintEntry.Text = "";
+                pushHint(false);
+                e.SuppressKeyPress = true;
+            }
         }
 
         protected override void WndProc(ref Message m)
