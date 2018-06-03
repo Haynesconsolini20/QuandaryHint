@@ -553,5 +553,20 @@ namespace QuandaryHint
         {
 
         }
+
+        /// <summary>
+        /// Handles keyboard shortcuts for the hintEntry textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hintEntry_KeyDown(object sender, KeyEventArgs e)
+        {
+            //ENTER: Push a hint, prevent normal event from occurring
+            if (e.KeyValue == 13)
+            {
+                pushHint(true);
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }
