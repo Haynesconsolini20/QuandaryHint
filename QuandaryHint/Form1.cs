@@ -563,13 +563,21 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-           
-           if (e.KeyValue == 33 || e.KeyValue == 34)
+           if (e.KeyValue == 33)
+            {
+                testGame.PlayHint();
+                e.SuppressKeyPress = true;
+            }
+           if (e.KeyValue == 34)
            {
                 testGame.StartGame();
                 welcomeTimer.Start();
                 e.SuppressKeyPress = true;
            }
+           if (e.KeyValue == 116)
+            {
+                testGame.Escape();
+            }
         }
         /// <summary>
         /// Handles keyboard shortcuts for the hintEntry textbox
