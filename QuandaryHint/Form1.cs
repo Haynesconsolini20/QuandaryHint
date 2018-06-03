@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using RawInput_dll;
 using System.IO;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 
 
@@ -21,7 +22,17 @@ using System.ComponentModel;
 namespace QuandaryHint
 {
     public partial class Form1 : Form
-    { 
+    {
+        //Imports the RegisterHotKey method for global hotkeys
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        //Constants for our key IDs
+        const int PAGEUP_ID = 1;
+        const int PAGEDOWN_ID = 2;
+        const int F5_ID = 3;
+
         #region Variables
       
         //Holds specific options for each game mode
@@ -83,7 +94,19 @@ namespace QuandaryHint
             //Setting up the welcome message timer
             welcomeTimer.Interval = (int)(inheritOptions.timerOffset * 1000);
             welcomeTimer.Tick += new EventHandler(timer_Tick);
-            
+
+            //Global hotkey setup
+           
+
+            //Set the hotkey triggerer for the pageup key
+            int PageUpKey = (int)Keys.PageUp;
+            int pgDownKey = (int)Keys.PageDown;
+            int f5Key = (int)Keys.F5;
+            //Register the hotkey
+            RegisterHotKey(this.Handle, PAGEUP_ID, 0x0000, PageUpKey);
+            RegisterHotKey(this.Handle, PAGEDOWN_ID, 0x0000, pgDownKey);
+            RegisterHotKey(this.Handle, F5_ID, 0x0000, f5Key);
+           
 
             #region RawInput setup DO NOT TOUCH
            // rawInputKeyboard = new RawInputKeyboard();
@@ -563,21 +586,7 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-           if (e.KeyValue == 33)
-            {
-                testGame.PlayHint();
-                e.SuppressKeyPress = true;
-            }
-           if (e.KeyValue == 34)
-           {
-                testGame.StartGame();
-                welcomeTimer.Start();
-                e.SuppressKeyPress = true;
-           }
-           if (e.KeyValue == 116)
-            {
-                testGame.Escape();
-            }
+           
         }
         /// <summary>
         /// Handles keyboard shortcuts for the hintEntry textbox
@@ -592,6 +601,31 @@ namespace QuandaryHint
                 pushHint(true);
                 e.SuppressKeyPress = true;
             }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            //Catch when a hotkey is pressed
+            if (m.Msg == 0x0312)
+            {
+                int id = m.WParam.ToInt32();
+                if (id == PAGEDOWN_ID)
+                {
+                    testGame.StartGame();
+                    welcomeTimer.Start();
+                }
+                if (id == PAGEUP_ID)
+                {
+                    testGame.PlayHint();
+                }
+                if (id == F5_ID)
+                {
+                    testGame.Escape();
+                }
+                
+            }
+
+            base.WndProc(ref m);
         }
     }
 }
