@@ -154,6 +154,7 @@ namespace QuandaryHint
                     string json = sr.ReadLine();
                     inheritOptions = JsonConvert.DeserializeObject<GameOptions>(json);
                     Console.WriteLine("hint volume is " + inheritOptions.hintVolume);
+                    sr.Close();
                 }
                 catch (IOException e)
                 {

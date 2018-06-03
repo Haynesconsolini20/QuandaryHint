@@ -93,6 +93,8 @@ namespace QuandaryHint
             gameOptions.videoPath = game.videoPath;
             gameOptions.audioPath = game.audioPath;
             gameOptions.previewFont = game.previewFont;
+            gameOptions.videoOffset = game.videoOffset;
+            System.Console.WriteLine("game vo: " + game.videoOffset);
 
 
             //Setup the video classes
@@ -275,8 +277,9 @@ namespace QuandaryHint
         /// </summary>
         public void ResetGame()
         {
-           // PauseGame();
+            // PauseGame();
 
+            System.Console.WriteLine("video path is " + gameOptions.videoPath);
             gameVideo.SetPath(gameOptions.videoPath);
             previewVideo.SetPath(gameOptions.videoPath);
             videoSound.SetPath(gameOptions.audioPath);
@@ -402,6 +405,8 @@ namespace QuandaryHint
 
 
             sw.Close();*/
+            gameOptions.videoOffset = gameVideo.videoOffset;
+            System.Console.WriteLine("vo: " + gameOptions.videoOffset);
             gameOptions.hintFontSize = gameHint.hintWindowFont;
             gameOptions.hintVolume = hintSound.volume;
             gameOptions.gameVolume = gameVideo.volume;
