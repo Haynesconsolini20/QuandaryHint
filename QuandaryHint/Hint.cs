@@ -47,7 +47,7 @@ namespace QuandaryHint
             hint.hintLabel.ForeColor = gameO.fontColor;
             hint.Text = gameO.gameMode + " Hints";
 
-            if (gameO.gameMode == "The Psych Ward")
+            if (gameO.gameMode == "The Dynaline Incident")
             {
                 hint.hintLabel.TextAlign = ContentAlignment.TopCenter;
                

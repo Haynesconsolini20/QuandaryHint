@@ -11,14 +11,8 @@ using Newtonsoft.Json;
 /************************************
  * TODO LIST
  * Ctrl-f TODO for specific functions
- * Give all the buttons a meaningful name and text
- * Redo the design ffs
- * Reorganize the functions into correct regions
- * Get a previewText and videoText from gameselect
- * Adjust dynaline texts to be on top of screen
- * Make dynaline font slightly smaller
- * Make start/adjust two different buttons
- * Toggle keyboard
+ * Use enum for gametype
+ * seperate game options struct into seperate file
  * ***********************************/
 namespace QuandaryHint
 {
