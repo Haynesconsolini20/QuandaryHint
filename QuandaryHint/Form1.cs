@@ -5,6 +5,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
+using NLog;
 
 
 
@@ -29,7 +30,9 @@ namespace QuandaryHint
         const int F5_ID = 3;
 
         #region Variables
-      
+
+        //logger
+        NLog.Logger logger;
         //Holds specific options for each game mode
         public GameOptions inheritOptions;
 
@@ -67,6 +70,8 @@ namespace QuandaryHint
         #region Constructors
         public Form1(gameSelect gameSel)
         {
+            logger = NLog.LogManager.GetCurrentClassLogger();
+            logger.Info("Beginning new " + gameSel.gameOptions.gameMode + " game");
             //Start the form
             InitializeComponent();
 
@@ -78,6 +83,7 @@ namespace QuandaryHint
             ReadConfigFile(ref inheritOptions);
 
             //Startup our main class
+            logger.Info("Initializing windows");
             testGame = new Game(inheritOptions);
 
             //Open up the configuration window
@@ -85,13 +91,13 @@ namespace QuandaryHint
 
             //TODO: Look into data linking to get rid of this
             audioToggle.Checked = audioOn;
-
+            logger.Info("Registering welcomeTimer");
             //Setting up the welcome message timer
             welcomeTimer.Interval = (int)(inheritOptions.timerOffset * 1000);
             welcomeTimer.Tick += new EventHandler(timer_Tick);
 
             //Global hotkey setup
-           
+            logger.Info("Registering hotkeys");
 
             //Set the hotkey triggerer for the pageup key
             int PageUpKey = (int)Keys.PageUp;
@@ -124,11 +130,13 @@ namespace QuandaryHint
         /// <param name="inheritOptions"></param>
         private void ReadConfigFile(ref GameOptions inheritOptions)
         {
+            logger.Info("ReadConfigFile starting");
             string configPath = inheritOptions.gameMode + ".json";
 
             //If there isn't a file
             if (!File.Exists(configPath))
             {
+                logger.Error("No file found");
                 //Make one with some junk in it
                 StreamWriter sw = new StreamWriter(configPath);
                 sw.WriteLine("blankbook");
@@ -145,13 +153,15 @@ namespace QuandaryHint
                 //Read in our data
                 try
                 {
+                    logger.Info("Attempting to read in data");
                     string json = sr.ReadLine();
                     inheritOptions = JsonConvert.DeserializeObject<GameOptions>(json);
-                    Console.WriteLine("hint volume is " + inheritOptions.hintVolume);
+                    logger.Info("hint volume is " + inheritOptions.hintVolume);
                     sr.Close();
                 }
                 catch (IOException e)
                 {
+                    logger.Error("IOException: " + e);
                     System.Console.WriteLine(e);
                     MessageBox.Show("Invalid config file.");
                     File.Delete(configPath);
@@ -161,6 +171,7 @@ namespace QuandaryHint
                     sr.Close();
                 }
             }
+            logger.Info("ReadConfigFile finishing");
         }
 
         /// <summary>
@@ -170,6 +181,7 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            logger.Info("Form closing");
            if(writeFile)
                 testGame.WriteConfigFile();
 
@@ -186,6 +198,7 @@ namespace QuandaryHint
         /// <param name="sound"></param>
         private void pushHint(bool sound)
         {
+            logger.Info("Pushing a hint, Sound?: " + sound);
             //Play the sound
             if (audioOn && sound)
                 testGame.PlayHint();
@@ -208,6 +221,7 @@ namespace QuandaryHint
         /// <param name="adjustment"></param>
         private void updateHintCount(int adjustment)
         {
+            logger.Info("Updating hint count with adjustment " + adjustment);
             //Change the hint count
             hintCount += adjustment;
 
@@ -588,10 +602,14 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void hintEntry_KeyDown(object sender, KeyEventArgs e)
         {
-            testGame.DecoderMessage();
+            if ((e.KeyValue != 16 || e.KeyValue != 17) && hintEntry.Text != "")
+            {
+                testGame.DecoderMessage();
+            }
             //ENTER: Push a hint, prevent normal event from occurring
             if (e.KeyValue == 13)
             {
+                logger.Info("Enter pressed, pushing hint");
                 if (e.Shift)
                     pushHint(false);
                 else
@@ -600,6 +618,7 @@ namespace QuandaryHint
             }
             if (e.KeyValue == 82 && e.Control) //Remove hint from entry and screen
             {
+                logger.Info("Clearing hintEntry");
                 hintEntry.Text = "";
                 pushHint(false);
                 e.SuppressKeyPress = true;
@@ -609,26 +628,29 @@ namespace QuandaryHint
 
         protected override void WndProc(ref Message m)
         {
+           
             //Catch when a hotkey is pressed
             if (m.Msg == 0x0312)
             {
                 int id = m.WParam.ToInt32();
                 if (id == PAGEDOWN_ID)
                 {
+                    logger.Info("Detected pagedown, starting game");
                     testGame.StartGame();
                     welcomeTimer.Start();
                 }
                 if (id == PAGEUP_ID)
                 {
+                    logger.Info("Detected pageup, playing hint sound");
                     testGame.PlayHint();
                 }
                 if (id == F5_ID)
                 {
+                    logger.Info("Detected f5, escaping");
                     testGame.Escape();
                 }
                 
             }
-
             base.WndProc(ref m);
         }
     }

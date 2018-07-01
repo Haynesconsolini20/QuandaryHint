@@ -27,6 +27,9 @@ namespace QuandaryHint
         //Index of the desired waveout device
         public uint waveOutIndex;
 
+        //Logger
+        NLog.Logger logger;
+
         #endregion
 
         #region Constructors
@@ -36,6 +39,8 @@ namespace QuandaryHint
         /// <param name="gameOpt"></param>
         public Game(GameOptions gameOpt)
         {
+            //init logger 
+            logger = NLog.LogManager.GetCurrentClassLogger();
             gameHint = new Hint(false);
             previewHint = new Hint(true);
 
@@ -76,11 +81,14 @@ namespace QuandaryHint
         /// <param name="game"></param>
         private void ParseGameOptions(GameOptions game)
         {
+            logger.Info("Starting ParseGameOptions");
             //10 here is a placeholder value to indicate that there is no waveout device selected
             //In theory this breaks if there are 10 sound outputs on a single computer..but I'm
             //counting on that not happening
             if (gameOptions.waveOut != 10)
                 SetAudioOutput((uint)game.waveOut);
+            else
+                logger.Info("Invalid amount of waveOut devices");
 
             //Copying of the struct
             gameOptions.welcomeMessage = game.welcomeMessage;
@@ -95,6 +103,7 @@ namespace QuandaryHint
             gameOptions.previewFont = game.previewFont;
             gameOptions.videoOffset = game.videoOffset;
             System.Console.WriteLine("game vo: " + game.videoOffset);
+            logger.Info(gameOptions); 
 
 
             //Setup the video classes
@@ -129,8 +138,12 @@ namespace QuandaryHint
             {
                 loopMusic.SetPath(@"assets\dynalineLoop.mp3");
             }
-            
-           
+            else
+            {
+                logger.Warn("No loop audio detected for " + game.gameMode);
+            }
+
+            logger.Info("ParseGameOptions finished");
         }
 
         /// <summary>
@@ -138,12 +151,14 @@ namespace QuandaryHint
         /// </summary>
         public void SetupGameWindow()
         {
+            logger.Info("SetupGameWindow starting");
             gameVideo.AdjustVideo();
             gameVideo.ToggleBorder();
             SetupHintWindows();
             AlignHintWindows();
             ResetGame();
             loopMusic.PlayLoop();
+            logger.Info("SetupGameWindow finished");
         }
         #endregion
 
@@ -154,6 +169,7 @@ namespace QuandaryHint
         /// <param name="i"></param>
         public void SetAudioOutput(uint i)
         {
+            logger.Info("Setting audio output to device " + i);
             videoSound.SetAudioOutput(i);
             hintSound.SetAudioOutput(i);
             waveOutIndex = i;
@@ -171,22 +187,23 @@ namespace QuandaryHint
         /// </summary>
         public void StartGame()
         {
-            
+            logger.Info("StartGame starting");
+            logger.Info("Setting position of videos");
             gameVideo.SetPosition(0.0, 0.0);
             previewVideo.SetPosition(0.0, 0.0);
-            //videoSound.SetPosition(750); 
+           
 
+            logger.Info("Pausing loop music and unmuting game audio");
             loopMusic.PausePlayback();
             gameVideo.SetMute(false);
 
+            logger.Info("Resuming playback for gameVideo, videoSound, and previewVideo");
             gameVideo.ResumePlayback();
             videoSound.StartPlayback();
             previewVideo.ResumePlayback();
-            /*
-            gameVideo.StartPlayback();
-            videoSound.StartPlayback();
-            previewVideo.StartPlayback();
-           */
+
+            logger.Info("StartGame finished");
+           
         }
 
         /// <summary>
@@ -194,9 +211,11 @@ namespace QuandaryHint
         /// </summary>
         public void ResumeGame()
         {
+            logger.Info("ResumeGame starting");
             gameVideo.ResumePlayback();
             videoSound.ResumePlayback();
             previewVideo.ResumePlayback();
+            logger.Info("ResumeGame finished");
         }
 
         /// <summary>
@@ -204,10 +223,12 @@ namespace QuandaryHint
         /// </summary>
         public void PauseGame()
         {
+            logger.Info("PauseGame starting");
             gameVideo.PausePlayback();
             previewVideo.PausePlayback();
             videoSound.PausePlayback();
             gameVideo.UpdatePlaybackPosition();
+            logger.Info("PauseGame finished");
         }
 
         /// <summary>
@@ -217,6 +238,8 @@ namespace QuandaryHint
         /// <param name="seconds"></param>
         public void RewindGame(double minutes, double seconds)
         {
+            logger.Info("Rewinding game by " + minutes + " minutes and " + seconds + " seconds");
+
             gameVideo.Rewind(minutes, seconds);
             previewVideo.Rewind(minutes, seconds);
             videoSound.Rewind(minutes, seconds);
@@ -229,6 +252,7 @@ namespace QuandaryHint
         /// <param name="seconds"></param>
         public void FastForward(double minutes, double seconds)
         {
+            logger.Info("FastForwarding game by " + minutes + " minutes and " + seconds + " seconds");
             gameVideo.FastForward(minutes, seconds);
             previewVideo.FastForward(minutes, seconds);
             videoSound.FastForward(minutes, seconds);
@@ -239,9 +263,11 @@ namespace QuandaryHint
         /// </summary>
         public void TogglePaused()
         {
+            logger.Info("TogglePaused starting, updating playback position");
             gameVideo.UpdatePlaybackPosition();
             if (!paused)
             {
+                logger.Info("Pausing game");
                 PauseGame();
                 
                 paused = true;
@@ -249,9 +275,12 @@ namespace QuandaryHint
             }
             else
             {
+                logger.Info("Resuming game");
                 ResumeGame();
                 paused = false;
             }
+
+            logger.Info("TogglePaused finished");
 
         }
 
@@ -260,9 +289,11 @@ namespace QuandaryHint
         /// </summary>
         public void Escape()
         {
+            logger.Info("Escape started, toggling pause state");
             TogglePaused();
             if (gameOptions.gameMode == "The Dynaline Incident")
             {
+                logger.Info("Dynaline detected, beginning victory video");
                 gameVideo.SetPath(@"C:\DI_Victory.wmv");
                 previewVideo.SetPath(@"C:\DI_Victory.wmv");
                 videoSound.SetPath(@"assets\DI_Victory.mp3");
@@ -270,6 +301,8 @@ namespace QuandaryHint
                 gameVideo.SetMute(false);
                 StartGame();
             }
+
+            logger.Info("Escape finished");
         }
 
         /// <summary>
@@ -278,7 +311,7 @@ namespace QuandaryHint
         public void ResetGame()
         {
             // PauseGame();
-
+            logger.Info("ResetGame starting");
             System.Console.WriteLine("video path is " + gameOptions.videoPath);
             gameVideo.SetPath(gameOptions.videoPath);
             previewVideo.SetPath(gameOptions.videoPath);
@@ -287,6 +320,7 @@ namespace QuandaryHint
             gameVideo.DisplayFrame();
             previewVideo.DisplayFrame();
             loopMusic.PlayLoop();
+            logger.Info("ResetGame finished");
         }
         #endregion
 
@@ -361,6 +395,7 @@ namespace QuandaryHint
         /// <returns></returns>
         public string GetEscapeTime(bool excel)
         {
+            logger.Info("GetEscapeTime starting");
             string escape;
 
             double minutes = (gameVideo.GetPlaybackPosition() - gameOptions.timerOffset) / 60;
@@ -379,7 +414,7 @@ namespace QuandaryHint
                 escape = (int)minutes + ":" + sec;
 
 
-
+            logger.Info("GetEscapeTime finished with time " + escape);
             return escape;
         }
 
@@ -390,21 +425,7 @@ namespace QuandaryHint
         /// <param name="excelPath"></param>
         public void WriteConfigFile()
         {
-            /*StreamWriter sw = new StreamWriter(gameOptions.gameMode + "_config.txt");
-            //font size
-            sw.WriteLine(gameHint.hintWindowFont);
-            //hint volume
-            sw.WriteLine(hintSound.volume);
-            //video volume
-            sw.WriteLine(gameVideo.volume);
-            //loop volume
-            System.Console.WriteLine("wr video vol of " + gameVideo.volume);
-            sw.WriteLine(loopMusic.volume);
-            //Audio output device
-            sw.WriteLine(waveOutIndex);
-
-
-            sw.Close();*/
+            logger.Info("WriteConfigFile starting");
             gameOptions.videoOffset = gameVideo.videoOffset;
             System.Console.WriteLine("vo: " + gameOptions.videoOffset);
             gameOptions.hintFontSize = gameHint.hintWindowFont;
@@ -415,6 +436,7 @@ namespace QuandaryHint
             StreamWriter sw = new StreamWriter(gameOptions.gameMode + ".json");
             sw.WriteLine(json);
             sw.Close();
+            logger.Info("WriteConfigFile finished, wrote to " + gameOptions.gameMode + ".json");
         }
         #endregion
     }
