@@ -316,6 +316,7 @@ namespace QuandaryHint
             gameVideo.SetPath(gameOptions.videoPath);
             previewVideo.SetPath(gameOptions.videoPath);
             videoSound.SetPath(gameOptions.audioPath);
+            paused = true;
 
             gameVideo.DisplayFrame();
             previewVideo.DisplayFrame();
