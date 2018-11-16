@@ -225,8 +225,7 @@ namespace QuandaryHint
             //Change the hint count
             hintCount += adjustment;
 
-            //Change the ticker
-            hintCounter.Value = hintCount;
+            
         }
         #endregion
 
@@ -450,7 +449,7 @@ namespace QuandaryHint
         /// <param name="e"></param>
         private void hintCounter_ValueChanged(object sender, EventArgs e)
         {
-            hintCount = (int)hintCounter.Value;
+            
             updateHintCount(0);
         }
 
@@ -492,8 +491,7 @@ namespace QuandaryHint
             }
             finally
             {
-                TeamNameEntry.Text = "blank";
-                TeamSizeEntry.Value = 0;
+               
                 testGame.SetHintText("");
             }
             
@@ -518,10 +516,7 @@ namespace QuandaryHint
         private void ResetBtn_Click(object sender, EventArgs e)
         {
             testGame.ResetGame();
-            if (TeamSizeEntry.Value > 0)
-              //  excel.AppendToDocument((int)TeamSizeEntry.Value, TeamNameEntry.Text, "0", false);
-            TeamNameEntry.Text = "blank";
-            TeamSizeEntry.Value = 0;
+            
             label3.Text = "Escape Time";
             testGame.SetHintText("");
             welcomeTimer.Stop();
