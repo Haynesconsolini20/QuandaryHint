@@ -79,18 +79,18 @@ namespace QuandaryHint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void runawayTrain_Click(object sender, EventArgs e)
+        private void candyShoppe_Click(object sender, EventArgs e)
         {
-            gameOptions.welcomeMessage = "Welcome to the Runaway Train...";
+            gameOptions.welcomeMessage = "Welcome to the Candy Shoppe...";
             gameOptions.hintFontSize = 22;
             gameOptions.hintFont = new Font("Lucida Console", gameOptions.hintFontSize);
             gameOptions.previewFont = new Font("Lucida Console", 12);
-            gameOptions.fontColor = Color.Green;
-            gameOptions.gameMode = "The Runaway Train";
+            gameOptions.fontColor = Color.White;
+            gameOptions.gameMode = "The Candy Shoppe";
             gameOptions.audioPath = @"assets\trainSound.mp3";
-            gameOptions.videoPath = @"C:\RT.wmv";
-            gameOptions.timerOffset = 140;
-            gameOptions.videoOffset = 3740;
+            gameOptions.videoPath = @"C:\CS.wmv";
+            gameOptions.timerOffset = 60;
+            gameOptions.videoOffset = 57;
             gameOptions.hintVolume = 10;
             gameOptions.gameVolume = 10;
             gameOptions.gameColumn = 8;

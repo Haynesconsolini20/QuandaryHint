@@ -37,7 +37,7 @@
             // lockedInDead
             // 
             this.lockedInDead.Location = new System.Drawing.Point(28, 62);
-            this.lockedInDead.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lockedInDead.Margin = new System.Windows.Forms.Padding(4);
             this.lockedInDead.Name = "lockedInDead";
             this.lockedInDead.Size = new System.Drawing.Size(250, 100);
             this.lockedInDead.TabIndex = 0;
@@ -48,18 +48,18 @@
             // runawayTrain
             // 
             this.runawayTrain.Location = new System.Drawing.Point(296, 62);
-            this.runawayTrain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.runawayTrain.Margin = new System.Windows.Forms.Padding(4);
             this.runawayTrain.Name = "runawayTrain";
             this.runawayTrain.Size = new System.Drawing.Size(250, 100);
             this.runawayTrain.TabIndex = 1;
-            this.runawayTrain.Text = "The Runaway Train";
+            this.runawayTrain.Text = "The Candy Shoppe";
             this.runawayTrain.UseVisualStyleBackColor = true;
-            this.runawayTrain.Click += new System.EventHandler(this.runawayTrain_Click);
+            this.runawayTrain.Click += new System.EventHandler(this.candyShoppe_Click);
             // 
             // psychWard
             // 
             this.psychWard.Location = new System.Drawing.Point(564, 62);
-            this.psychWard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.psychWard.Margin = new System.Windows.Forms.Padding(4);
             this.psychWard.Name = "psychWard";
             this.psychWard.Size = new System.Drawing.Size(250, 100);
             this.psychWard.TabIndex = 2;
@@ -76,7 +76,7 @@
             this.Controls.Add(this.runawayTrain);
             this.Controls.Add(this.lockedInDead);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "gameSelect";
             this.Text = "gameSelect";
             this.ResumeLayout(false);
