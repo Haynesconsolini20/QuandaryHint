@@ -130,13 +130,14 @@ namespace QuandaryHint
             {
                 loopMusic.SetPath(@"assets\deadLoop.mp3");
             }
-            else if (game.gameMode == "The Runaway Train")
-            {
-                loopMusic.SetPath(@"assets\trainLoop.mp3");
-            }
             else if (game.gameMode == "The Dynaline Incident")
             {
                 loopMusic.SetPath(@"assets\dynalineLoop.mp3");
+            }
+            else if (game.gameMode == "The Candy Shoppe")
+            {
+                logger.Info("Setting candy shop loop");
+                loopMusic.SetPath(@"assets\deadLoop.mp3");
             }
             else
             {

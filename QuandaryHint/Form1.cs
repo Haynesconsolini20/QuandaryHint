@@ -344,6 +344,12 @@ namespace QuandaryHint
         private void timer_Tick(object sender, EventArgs e)
         {
             testGame.SetHintText(inheritOptions.welcomeMessage);
+            logger.Info("timer tick");
+            if (inheritOptions.gameMode == "The Candy Shoppe")
+            {
+                logger.Info("candy shoppe tick");
+                testGame.loopMusic.PlayLoop();
+            }
             welcomeTimer.Stop();
         }
 

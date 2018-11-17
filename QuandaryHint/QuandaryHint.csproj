@@ -131,6 +131,9 @@
     <EmbeddedResource Include="videoPane.resx">
       <DependentUpon>videoPane.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="assets\candyShoppeLoop.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
