@@ -53,6 +53,10 @@ namespace QuandaryHint
                
                 hint.hintLabel.Padding = new Padding(0, 50, 0, 0);
             }
+            if (gameO.gameMode == "The Candy Shoppe" && !this.preview)
+            {
+                hint.hintLabel.Padding = new Padding(150, 0, 150, 75);
+            }
 
         }
 
